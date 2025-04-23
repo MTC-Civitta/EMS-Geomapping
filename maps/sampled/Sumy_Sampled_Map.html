@@ -1,0 +1,845 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    
+        <script>
+            L_NO_TOUCH = false;
+            L_DISABLE_3D = false;
+        </script>
+    
+    <style>html, body {width: 100%;height: 100%;margin: 0;padding: 0;}</style>
+    <style>#map {position:absolute;top:0;bottom:0;right:0;left:0;}</style>
+    <script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.0/css/all.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/python-visualization/folium/folium/templates/leaflet.awesome.rotate.min.css"/>
+    
+            <meta name="viewport" content="width=device-width,
+                initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+            <style>
+                #map_5705fb18baf83fa4af60e73dd9142901 {
+                    position: relative;
+                    width: 100.0%;
+                    height: 100.0%;
+                    left: 0.0%;
+                    top: 0.0%;
+                }
+                .leaflet-container { font-size: 1rem; }
+            </style>
+        
+    <script src="https://unpkg.com/leaflet.featuregroup.subgroup@1.0.2/dist/leaflet.featuregroup.subgroup.js"></script>
+</head>
+<body>
+    
+    
+    <div style="position: fixed;
+                bottom: 50px; left: 50px; width: 220px;
+                background-color: white; z-index:9999; font-size:14px;
+                border:2px solid grey; padding: 10px;">
+    <h4>Legend</h4>
+    <b>EMS Centers</b><br>
+    <i style="background:darkred; color:white; padding: 5px;">&nbsp;&nbsp;&nbsp;</i> ЦЕМД<br>
+    <i style="background:red; color:white; padding: 5px;">&nbsp;&nbsp;&nbsp;</i> Станція<br>
+    <i style="background:orange; color:black; padding: 5px;">&nbsp;&nbsp;&nbsp;</i> Підстанція<br>
+    <i style="background:yellow; color:black; padding: 5px;">&nbsp;&nbsp;&nbsp;</i> Пункт базування<br>
+    <i style="background:green; color:white; padding: 5px;">&nbsp;&nbsp;&nbsp;</i> ОДС<br><br>
+    <b>Hospitals</b><br>
+    <i style="background:purple; color:white; padding: 5px;">&nbsp;&nbsp;&nbsp;</i> Надкластерний ЗОЗ<br>
+    <i style="background:blue; color:white; padding: 5px;">&nbsp;&nbsp;&nbsp;</i> Кластерний ЗОЗ<br>
+    <i style="background:green; color:white; padding: 5px;">&nbsp;&nbsp;&nbsp;</i> Загальний ЗОЗ<br>
+    </div>
+    
+    
+            <div class="folium-map" id="map_5705fb18baf83fa4af60e73dd9142901" ></div>
+        
+</body>
+<script>
+    
+    
+            var map_5705fb18baf83fa4af60e73dd9142901 = L.map(
+                "map_5705fb18baf83fa4af60e73dd9142901",
+                {
+                    center: [51.2389, 34.3192],
+                    crs: L.CRS.EPSG3857,
+                    ...{
+  "zoom": 7,
+  "zoomControl": true,
+  "preferCanvas": false,
+}
+
+                }
+            );
+
+            
+
+        
+    
+            var tile_layer_793fae4238ab6a1efa1f707ddc9b6425 = L.tileLayer(
+                "https://tile.openstreetmap.org/{z}/{x}/{y}.png",
+                {
+  "minZoom": 0,
+  "maxZoom": 19,
+  "maxNativeZoom": 19,
+  "noWrap": false,
+  "attribution": "\u0026copy; \u003ca href=\"https://www.openstreetmap.org/copyright\"\u003eOpenStreetMap\u003c/a\u003e contributors",
+  "subdomains": "abc",
+  "detectRetina": false,
+  "tms": false,
+  "opacity": 1,
+}
+
+            );
+        
+    
+            tile_layer_793fae4238ab6a1efa1f707ddc9b6425.addTo(map_5705fb18baf83fa4af60e73dd9142901);
+        
+    
+            var feature_group_adee8bf8d477f2eab8b2dc6a3b2c3fed = L.featureGroup(
+                {
+}
+            );
+        
+    
+            feature_group_adee8bf8d477f2eab8b2dc6a3b2c3fed.addTo(map_5705fb18baf83fa4af60e73dd9142901);
+        
+    
+            var feature_group_sub_group_078622d44e0f925811d3632baadd2153 = L.featureGroup.subGroup(
+                feature_group_adee8bf8d477f2eab8b2dc6a3b2c3fed
+            );
+        
+    
+            var circle_marker_6464c249b9c4008ab6ff940cc5e26704 = L.circleMarker(
+                [50.8935331, 34.7772389],
+                {"bubblingMouseEvents": true, "color": "green", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "green", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 3}
+            ).addTo(feature_group_sub_group_078622d44e0f925811d3632baadd2153);
+        
+    
+        var popup_328eb99ef8a67187ea6f0cde756c296a = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_9307a0333b4f45e6c6faf23a1fdae9e8 = $(`<div id="html_9307a0333b4f45e6c6faf23a1fdae9e8" style="width: 100.0%; height: 100.0%;">EMS: ОДС<br>м. Суми, провулок Громадянський, 4А</div>`)[0];
+                popup_328eb99ef8a67187ea6f0cde756c296a.setContent(html_9307a0333b4f45e6c6faf23a1fdae9e8);
+            
+        
+
+        circle_marker_6464c249b9c4008ab6ff940cc5e26704.bindPopup(popup_328eb99ef8a67187ea6f0cde756c296a)
+        ;
+
+        
+    
+    
+            feature_group_sub_group_078622d44e0f925811d3632baadd2153.addTo(map_5705fb18baf83fa4af60e73dd9142901);
+        
+    
+            var feature_group_sub_group_75b7eff6d6b7ff85f6987a946df48bcd = L.featureGroup.subGroup(
+                feature_group_adee8bf8d477f2eab8b2dc6a3b2c3fed
+            );
+        
+    
+            var circle_marker_0d7e63bde8894c57dc33acd43ad8b35a = L.circleMarker(
+                [50.99236089999999, 33.9710636],
+                {"bubblingMouseEvents": true, "color": "yellow", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "yellow", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 3}
+            ).addTo(feature_group_sub_group_75b7eff6d6b7ff85f6987a946df48bcd);
+        
+    
+        var popup_aabb5b92a0c0c9024d3283171f88ec1d = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_cbc54f21e337152bd62c3989d6d11efc = $(`<div id="html_cbc54f21e337152bd62c3989d6d11efc" style="width: 100.0%; height: 100.0%;">EMS: Пункт базування<br>смт Терни Роменського району, вул. Небесної Сотні, буд. 11</div>`)[0];
+                popup_aabb5b92a0c0c9024d3283171f88ec1d.setContent(html_cbc54f21e337152bd62c3989d6d11efc);
+            
+        
+
+        circle_marker_0d7e63bde8894c57dc33acd43ad8b35a.bindPopup(popup_aabb5b92a0c0c9024d3283171f88ec1d)
+        ;
+
+        
+    
+    
+            var circle_marker_e451d133b144b763ed4476de1730b9f1 = L.circleMarker(
+                [51.0752764, 33.6057709],
+                {"bubblingMouseEvents": true, "color": "yellow", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "yellow", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 3}
+            ).addTo(feature_group_sub_group_75b7eff6d6b7ff85f6987a946df48bcd);
+        
+    
+        var popup_83d6d5156d356cf2172c7ca47ae47397 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_f7218deae16364a3ab499afefa657e28 = $(`<div id="html_f7218deae16364a3ab499afefa657e28" style="width: 100.0%; height: 100.0%;">EMS: Пункт базування<br>с. Чернеча Слобода Конотопського району, вул. Перемоги, буд. 10</div>`)[0];
+                popup_83d6d5156d356cf2172c7ca47ae47397.setContent(html_f7218deae16364a3ab499afefa657e28);
+            
+        
+
+        circle_marker_e451d133b144b763ed4476de1730b9f1.bindPopup(popup_83d6d5156d356cf2172c7ca47ae47397)
+        ;
+
+        
+    
+    
+            var circle_marker_9d491bc5803f3a13454b1ffb1d062bc6 = L.circleMarker(
+                [50.9394594, 34.6288526],
+                {"bubblingMouseEvents": true, "color": "yellow", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "yellow", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 3}
+            ).addTo(feature_group_sub_group_75b7eff6d6b7ff85f6987a946df48bcd);
+        
+    
+        var popup_9525e971e7ce8c90e3ed4fdc990f4549 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_8861fdeb02ad0a6b35259da2cbbec861 = $(`<div id="html_8861fdeb02ad0a6b35259da2cbbec861" style="width: 100.0%; height: 100.0%;">EMS: Пункт базування<br>смт Степанівка Сумського району, вул. Соборна, буд. 17</div>`)[0];
+                popup_9525e971e7ce8c90e3ed4fdc990f4549.setContent(html_8861fdeb02ad0a6b35259da2cbbec861);
+            
+        
+
+        circle_marker_9d491bc5803f3a13454b1ffb1d062bc6.bindPopup(popup_9525e971e7ce8c90e3ed4fdc990f4549)
+        ;
+
+        
+    
+    
+            var circle_marker_03c7a76dc08570a830b58b82e3310208 = L.circleMarker(
+                [51.5935691, 33.6561049],
+                {"bubblingMouseEvents": true, "color": "yellow", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "yellow", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 3}
+            ).addTo(feature_group_sub_group_75b7eff6d6b7ff85f6987a946df48bcd);
+        
+    
+        var popup_6add7fece9d51617e789646969783063 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_9428eb840cf2409dcdd8de0e7c80b3f5 = $(`<div id="html_9428eb840cf2409dcdd8de0e7c80b3f5" style="width: 100.0%; height: 100.0%;">EMS: Пункт базування<br>с. Тулиголове Конотопського району, вул. Шлях, буд. 38</div>`)[0];
+                popup_6add7fece9d51617e789646969783063.setContent(html_9428eb840cf2409dcdd8de0e7c80b3f5);
+            
+        
+
+        circle_marker_03c7a76dc08570a830b58b82e3310208.bindPopup(popup_6add7fece9d51617e789646969783063)
+        ;
+
+        
+    
+    
+            var circle_marker_f1ef2a726f7386fa113a35b66699e5f2 = L.circleMarker(
+                [51.1296375, 33.3778583],
+                {"bubblingMouseEvents": true, "color": "yellow", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "yellow", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 3}
+            ).addTo(feature_group_sub_group_75b7eff6d6b7ff85f6987a946df48bcd);
+        
+    
+        var popup_4efc2778a00557e7dbadc03ba76280d6 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_13eeb148640cf7ac13d448a89a1a390d = $(`<div id="html_13eeb148640cf7ac13d448a89a1a390d" style="width: 100.0%; height: 100.0%;">EMS: Пункт базування<br>смт Дубов’язівка Конотопського району, вул. Кооперативна, буд. 9</div>`)[0];
+                popup_4efc2778a00557e7dbadc03ba76280d6.setContent(html_13eeb148640cf7ac13d448a89a1a390d);
+            
+        
+
+        circle_marker_f1ef2a726f7386fa113a35b66699e5f2.bindPopup(popup_4efc2778a00557e7dbadc03ba76280d6)
+        ;
+
+        
+    
+    
+            var circle_marker_b416bcfbf3883143bca7db8b43265a7a = L.circleMarker(
+                [50.6499631, 31.0539034],
+                {"bubblingMouseEvents": true, "color": "yellow", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "yellow", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 3}
+            ).addTo(feature_group_sub_group_75b7eff6d6b7ff85f6987a946df48bcd);
+        
+    
+        var popup_6b625bf2f1ca2383bcc8b4f1c9bdf452 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_2a3b244fd461fc1f7e1c3f588d744561 = $(`<div id="html_2a3b244fd461fc1f7e1c3f588d744561" style="width: 100.0%; height: 100.0%;">EMS: Пункт базування<br>с. Шевченкове Шосткинського району, вул. Молодіжна, буд. 1</div>`)[0];
+                popup_6b625bf2f1ca2383bcc8b4f1c9bdf452.setContent(html_2a3b244fd461fc1f7e1c3f588d744561);
+            
+        
+
+        circle_marker_b416bcfbf3883143bca7db8b43265a7a.bindPopup(popup_6b625bf2f1ca2383bcc8b4f1c9bdf452)
+        ;
+
+        
+    
+    
+            var circle_marker_bb6644303ab209f75519d1417fdb970e = L.circleMarker(
+                [50.8320802, 34.9840888],
+                {"bubblingMouseEvents": true, "color": "yellow", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "yellow", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 3}
+            ).addTo(feature_group_sub_group_75b7eff6d6b7ff85f6987a946df48bcd);
+        
+    
+        var popup_f9199aabc24622263550877fc01e4f7a = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_bda8fa61a23db8db3aaaf525294708e4 = $(`<div id="html_bda8fa61a23db8db3aaaf525294708e4" style="width: 100.0%; height: 100.0%;">EMS: Пункт базування<br>с. Верхня Сироватка Сумського району, вул. Краснопільський Шлях, буд. 22 в</div>`)[0];
+                popup_f9199aabc24622263550877fc01e4f7a.setContent(html_bda8fa61a23db8db3aaaf525294708e4);
+            
+        
+
+        circle_marker_bb6644303ab209f75519d1417fdb970e.bindPopup(popup_f9199aabc24622263550877fc01e4f7a)
+        ;
+
+        
+    
+    
+            var circle_marker_0e98511fd2738548206588d72f9db8ec = L.circleMarker(
+                [51.1205534, 35.035725],
+                {"bubblingMouseEvents": true, "color": "yellow", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "yellow", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 3}
+            ).addTo(feature_group_sub_group_75b7eff6d6b7ff85f6987a946df48bcd);
+        
+    
+        var popup_242e6f05c79bbf2f178a5a7fd649f4e4 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_1c426a1f9d43e217eb5b4741f9800038 = $(`<div id="html_1c426a1f9d43e217eb5b4741f9800038" style="width: 100.0%; height: 100.0%;">EMS: Пункт базування<br>с. Юнаківка Сумського району, вул. Новоселівська, буд. 57 </div>`)[0];
+                popup_242e6f05c79bbf2f178a5a7fd649f4e4.setContent(html_1c426a1f9d43e217eb5b4741f9800038);
+            
+        
+
+        circle_marker_0e98511fd2738548206588d72f9db8ec.bindPopup(popup_242e6f05c79bbf2f178a5a7fd649f4e4)
+        ;
+
+        
+    
+    
+            var circle_marker_1f2803fe8d2cd285ba647af4ed33c365 = L.circleMarker(
+                [50.3601423, 35.119888],
+                {"bubblingMouseEvents": true, "color": "yellow", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "yellow", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 3}
+            ).addTo(feature_group_sub_group_75b7eff6d6b7ff85f6987a946df48bcd);
+        
+    
+        var popup_ab57e7e60cc5252a4d4df2e0cbc884aa = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_cb254767cf77f7871ac048f42dcc8534 = $(`<div id="html_cb254767cf77f7871ac048f42dcc8534" style="width: 100.0%; height: 100.0%;">EMS: Пункт базування<br>смт Кириківка Охтирського району, вул. Кобзарівська, буд. 31</div>`)[0];
+                popup_ab57e7e60cc5252a4d4df2e0cbc884aa.setContent(html_cb254767cf77f7871ac048f42dcc8534);
+            
+        
+
+        circle_marker_1f2803fe8d2cd285ba647af4ed33c365.bindPopup(popup_ab57e7e60cc5252a4d4df2e0cbc884aa)
+        ;
+
+        
+    
+    
+            feature_group_sub_group_75b7eff6d6b7ff85f6987a946df48bcd.addTo(map_5705fb18baf83fa4af60e73dd9142901);
+        
+    
+            var feature_group_sub_group_4673bca286bcfc20d64107b65d600710 = L.featureGroup.subGroup(
+                feature_group_adee8bf8d477f2eab8b2dc6a3b2c3fed
+            );
+        
+    
+            var circle_marker_c2e8dcbcafda39362bec8f3270d12afd = L.circleMarker(
+                [51.34048019999999, 33.8825654],
+                {"bubblingMouseEvents": true, "color": "orange", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "orange", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 3}
+            ).addTo(feature_group_sub_group_4673bca286bcfc20d64107b65d600710);
+        
+    
+        var popup_189472aff27fc69f23168084da61256e = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_59f1846ac358ee48eb73ccbcde7bed5d = $(`<div id="html_59f1846ac358ee48eb73ccbcde7bed5d" style="width: 100.0%; height: 100.0%;">EMS: Підстанція<br>м. Путивль Конотопського району, вул. Глухівська, буд. 1</div>`)[0];
+                popup_189472aff27fc69f23168084da61256e.setContent(html_59f1846ac358ee48eb73ccbcde7bed5d);
+            
+        
+
+        circle_marker_c2e8dcbcafda39362bec8f3270d12afd.bindPopup(popup_189472aff27fc69f23168084da61256e)
+        ;
+
+        
+    
+    
+            var circle_marker_26a597d499f51a43fe3860fd5d45ab6d = L.circleMarker(
+                [51.1464177, 34.3237289],
+                {"bubblingMouseEvents": true, "color": "orange", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "orange", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 3}
+            ).addTo(feature_group_sub_group_4673bca286bcfc20d64107b65d600710);
+        
+    
+        var popup_b3ddb65309a5de474180d2338755ac55 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_0afe8b93be79729b0618b1c77f3006b0 = $(`<div id="html_0afe8b93be79729b0618b1c77f3006b0" style="width: 100.0%; height: 100.0%;">EMS: Підстанція<br>м. Білопілля Сумського району, вул. Маяковського, 27</div>`)[0];
+                popup_b3ddb65309a5de474180d2338755ac55.setContent(html_0afe8b93be79729b0618b1c77f3006b0);
+            
+        
+
+        circle_marker_26a597d499f51a43fe3860fd5d45ab6d.bindPopup(popup_b3ddb65309a5de474180d2338755ac55)
+        ;
+
+        
+    
+    
+            var circle_marker_6f9373279b91fbcfcddacf0fc08e25af = L.circleMarker(
+                [50.4785666, 34.9691824],
+                {"bubblingMouseEvents": true, "color": "orange", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "orange", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 3}
+            ).addTo(feature_group_sub_group_4673bca286bcfc20d64107b65d600710);
+        
+    
+        var popup_33ad28853f96197b8d78f84b90cb3f9a = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_66f5ad566093d84f658a79f9c9fbff1c = $(`<div id="html_66f5ad566093d84f658a79f9c9fbff1c" style="width: 100.0%; height: 100.0%;">EMS: Підстанція<br>м. Тростянець Охтирського району, вул. Петра Соколенка, буд. 32 </div>`)[0];
+                popup_33ad28853f96197b8d78f84b90cb3f9a.setContent(html_66f5ad566093d84f658a79f9c9fbff1c);
+            
+        
+
+        circle_marker_6f9373279b91fbcfcddacf0fc08e25af.bindPopup(popup_33ad28853f96197b8d78f84b90cb3f9a)
+        ;
+
+        
+    
+    
+            var circle_marker_136cf54cbc11b5296ec11e8045fc2899 = L.circleMarker(
+                [51.9429874, 33.77593],
+                {"bubblingMouseEvents": true, "color": "orange", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "orange", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 3}
+            ).addTo(feature_group_sub_group_4673bca286bcfc20d64107b65d600710);
+        
+    
+        var popup_e197a6c466779826778cec0d48739389 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_d0063b18fcf5a2914c0e8cd6137a4718 = $(`<div id="html_d0063b18fcf5a2914c0e8cd6137a4718" style="width: 100.0%; height: 100.0%;">EMS: Підстанція<br>смт Ямпіль Шосткинського району, вул. Незалежна, буд. 38</div>`)[0];
+                popup_e197a6c466779826778cec0d48739389.setContent(html_d0063b18fcf5a2914c0e8cd6137a4718);
+            
+        
+
+        circle_marker_136cf54cbc11b5296ec11e8045fc2899.bindPopup(popup_e197a6c466779826778cec0d48739389)
+        ;
+
+        
+    
+    
+            feature_group_sub_group_4673bca286bcfc20d64107b65d600710.addTo(map_5705fb18baf83fa4af60e73dd9142901);
+        
+    
+            var feature_group_sub_group_fc9e26f3739b2d04146612a89ad50858 = L.featureGroup.subGroup(
+                feature_group_adee8bf8d477f2eab8b2dc6a3b2c3fed
+            );
+        
+    
+            var circle_marker_84431953ff1c029b48fe1131b42757a3 = L.circleMarker(
+                [51.87156290000001, 33.4672552],
+                {"bubblingMouseEvents": true, "color": "red", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "red", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 3}
+            ).addTo(feature_group_sub_group_fc9e26f3739b2d04146612a89ad50858);
+        
+    
+        var popup_8ac593c1a1b48dde599c8016b9204be1 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_e4c63572cf733ce523a3a5dacd82dd01 = $(`<div id="html_e4c63572cf733ce523a3a5dacd82dd01" style="width: 100.0%; height: 100.0%;">EMS: Станція<br>м. Шостка Сумської області, вул. Щедріна, буд. 1</div>`)[0];
+                popup_8ac593c1a1b48dde599c8016b9204be1.setContent(html_e4c63572cf733ce523a3a5dacd82dd01);
+            
+        
+
+        circle_marker_84431953ff1c029b48fe1131b42757a3.bindPopup(popup_8ac593c1a1b48dde599c8016b9204be1)
+        ;
+
+        
+    
+    
+            var circle_marker_445423ac28165d7180e177ba300f3307 = L.circleMarker(
+                [50.74835960000001, 33.4714548],
+                {"bubblingMouseEvents": true, "color": "red", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "red", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 3}
+            ).addTo(feature_group_sub_group_fc9e26f3739b2d04146612a89ad50858);
+        
+    
+        var popup_aa0edd2731175350943f1d730ad8a1dc = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_a3f2f3e4aab38b9d56e2e92258f384ac = $(`<div id="html_a3f2f3e4aab38b9d56e2e92258f384ac" style="width: 100.0%; height: 100.0%;">EMS: Станція<br>м. Ромни Сумської області, вул. Горького, буд. 170</div>`)[0];
+                popup_aa0edd2731175350943f1d730ad8a1dc.setContent(html_a3f2f3e4aab38b9d56e2e92258f384ac);
+            
+        
+
+        circle_marker_445423ac28165d7180e177ba300f3307.bindPopup(popup_aa0edd2731175350943f1d730ad8a1dc)
+        ;
+
+        
+    
+    
+            feature_group_sub_group_fc9e26f3739b2d04146612a89ad50858.addTo(map_5705fb18baf83fa4af60e73dd9142901);
+        
+    
+            var feature_group_sub_group_0b4bd63f517a221b04c6ae7e06051efe = L.featureGroup.subGroup(
+                feature_group_adee8bf8d477f2eab8b2dc6a3b2c3fed
+            );
+        
+    
+            var circle_marker_f20f1c943d63b77616fd3579f9a1f3ad = L.circleMarker(
+                [50.8935331, 34.7772389],
+                {"bubblingMouseEvents": true, "color": "darkred", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "darkred", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 3}
+            ).addTo(feature_group_sub_group_0b4bd63f517a221b04c6ae7e06051efe);
+        
+    
+        var popup_86ba0a0baa9db20c2c04dc3c192b3d8e = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_d57e5f2ba52a22571723fae77be74e31 = $(`<div id="html_d57e5f2ba52a22571723fae77be74e31" style="width: 100.0%; height: 100.0%;">EMS: ЦЕМД<br>м. Суми, провулок Громадянський, 4А</div>`)[0];
+                popup_86ba0a0baa9db20c2c04dc3c192b3d8e.setContent(html_d57e5f2ba52a22571723fae77be74e31);
+            
+        
+
+        circle_marker_f20f1c943d63b77616fd3579f9a1f3ad.bindPopup(popup_86ba0a0baa9db20c2c04dc3c192b3d8e)
+        ;
+
+        
+    
+    
+            feature_group_sub_group_0b4bd63f517a221b04c6ae7e06051efe.addTo(map_5705fb18baf83fa4af60e73dd9142901);
+        
+    
+            var feature_group_3652472f61a9e45a516cc89e3fb73c69 = L.featureGroup(
+                {
+}
+            );
+        
+    
+            var marker_7a4255e24af6ed5c25a3940c5bed5a30 = L.marker(
+                [50.8746861, 34.8195052],
+                {
+}
+            ).addTo(feature_group_3652472f61a9e45a516cc89e3fb73c69);
+        
+    
+            var icon_dbdd29a36762bf865a76a41811dc2027 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "purple",
+  "iconColor": "white",
+  "icon": "plus-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_860f6f4d02b4ce594b2293329bd434f9 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_c24092e7a2e30cd2c3def2880d58f3b9 = $(`<div id="html_c24092e7a2e30cd2c3def2880d58f3b9" style="width: 100.0%; height: 100.0%;">🏥 КНП СОР «Обласний клінічний перинатальний центр»<br><b>Надкластерний ЗОЗ</b><br>Сумська обл., місто Суми, вул.Санаторна, будинок 3</div>`)[0];
+                popup_860f6f4d02b4ce594b2293329bd434f9.setContent(html_c24092e7a2e30cd2c3def2880d58f3b9);
+            
+        
+
+        marker_7a4255e24af6ed5c25a3940c5bed5a30.bindPopup(popup_860f6f4d02b4ce594b2293329bd434f9)
+        ;
+
+        
+    
+    
+                marker_7a4255e24af6ed5c25a3940c5bed5a30.setIcon(icon_dbdd29a36762bf865a76a41811dc2027);
+            
+    
+            var marker_6ed919827de04d05d5208fe737f0fe6a = L.marker(
+                [50.9173229, 34.8154249],
+                {
+}
+            ).addTo(feature_group_3652472f61a9e45a516cc89e3fb73c69);
+        
+    
+            var icon_a9d901031d877bfebdd6f86a57e62b7f = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "purple",
+  "iconColor": "white",
+  "icon": "plus-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_6e924340a5766456588760448a673371 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_5f75898d7ccf8bc70d4c6f2d8a876328 = $(`<div id="html_5f75898d7ccf8bc70d4c6f2d8a876328" style="width: 100.0%; height: 100.0%;">🏥 КНП СОР «Сумська обласна клінічна лікарня»<br><b>Надкластерний ЗОЗ</b><br>Сумська обл., місто Суми, вул.Троїцька, будинок 48</div>`)[0];
+                popup_6e924340a5766456588760448a673371.setContent(html_5f75898d7ccf8bc70d4c6f2d8a876328);
+            
+        
+
+        marker_6ed919827de04d05d5208fe737f0fe6a.bindPopup(popup_6e924340a5766456588760448a673371)
+        ;
+
+        
+    
+    
+                marker_6ed919827de04d05d5208fe737f0fe6a.setIcon(icon_a9d901031d877bfebdd6f86a57e62b7f);
+            
+    
+            var marker_8838b7fe959bdb3bd8666c106efde6d6 = L.marker(
+                [51.6827611, 33.916535],
+                {
+}
+            ).addTo(feature_group_3652472f61a9e45a516cc89e3fb73c69);
+        
+    
+            var icon_95ce92f03b5554e1a7fc3f67e8774875 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "green",
+  "iconColor": "white",
+  "icon": "plus-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_ec8c59fd51e84dbe1bc0e400724d964a = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_adedeace55a41acf1e872147639165f1 = $(`<div id="html_adedeace55a41acf1e872147639165f1" style="width: 100.0%; height: 100.0%;">🏥 КНП «Глухівська міська лікарня» Глухівської міської ради<br><b>Загальний ЗОЗ</b><br>Сумська обл., місто Глухів, вулиця Інститутська, будинок 3</div>`)[0];
+                popup_ec8c59fd51e84dbe1bc0e400724d964a.setContent(html_adedeace55a41acf1e872147639165f1);
+            
+        
+
+        marker_8838b7fe959bdb3bd8666c106efde6d6.bindPopup(popup_ec8c59fd51e84dbe1bc0e400724d964a)
+        ;
+
+        
+    
+    
+                marker_8838b7fe959bdb3bd8666c106efde6d6.setIcon(icon_95ce92f03b5554e1a7fc3f67e8774875);
+            
+    
+            var marker_6aa12cc6dd324754bf90541d276b1c89 = L.marker(
+                [50.8922292, 34.7876413],
+                {
+}
+            ).addTo(feature_group_3652472f61a9e45a516cc89e3fb73c69);
+        
+    
+            var icon_63842510edeb04ec03f0ecfdfe364f77 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "plus-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_d2e67a857ba3f2520e9a0e6f4e06e510 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_b910ab6309b50ab311199369ffca0b65 = $(`<div id="html_b910ab6309b50ab311199369ffca0b65" style="width: 100.0%; height: 100.0%;">🏥 КНП «Центральна міська клінічна лікарня» Сумської міської ради<br><b>Кластерний ЗОЗ</b><br> Сумська обл., місто Суми, вулиця 20 років Перемоги, будинок 13</div>`)[0];
+                popup_d2e67a857ba3f2520e9a0e6f4e06e510.setContent(html_b910ab6309b50ab311199369ffca0b65);
+            
+        
+
+        marker_6aa12cc6dd324754bf90541d276b1c89.bindPopup(popup_d2e67a857ba3f2520e9a0e6f4e06e510)
+        ;
+
+        
+    
+    
+                marker_6aa12cc6dd324754bf90541d276b1c89.setIcon(icon_63842510edeb04ec03f0ecfdfe364f77);
+            
+    
+            var marker_fbfb27f7369523ad6f38296acf6171c3 = L.marker(
+                [51.3320976, 33.8810216],
+                {
+}
+            ).addTo(feature_group_3652472f61a9e45a516cc89e3fb73c69);
+        
+    
+            var icon_b1dd11f55af8f1e6b2aab05076873d2f = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "green",
+  "iconColor": "white",
+  "icon": "plus-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_165b6397f1ed8c76cd92004fdb44b60a = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_7a9a613004c4eab87791656966cd661e = $(`<div id="html_7a9a613004c4eab87791656966cd661e" style="width: 100.0%; height: 100.0%;">🏥 КНП «Путивльська міська лікарня»<br><b>Загальний ЗОЗ</b><br>Сумська обл., Конотопський р-н, місто Путивль, вул.Глухівська, будинок 1</div>`)[0];
+                popup_165b6397f1ed8c76cd92004fdb44b60a.setContent(html_7a9a613004c4eab87791656966cd661e);
+            
+        
+
+        marker_fbfb27f7369523ad6f38296acf6171c3.bindPopup(popup_165b6397f1ed8c76cd92004fdb44b60a)
+        ;
+
+        
+    
+    
+                marker_fbfb27f7369523ad6f38296acf6171c3.setIcon(icon_b1dd11f55af8f1e6b2aab05076873d2f);
+            
+    
+            var marker_3e33f26837fb90b2894b7b1b7a8d593a = L.marker(
+                [50.3172777, 34.8914183],
+                {
+}
+            ).addTo(feature_group_3652472f61a9e45a516cc89e3fb73c69);
+        
+    
+            var icon_a02eea623c549b7acab2a46d958ca32e = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "plus-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_4e2d568b2289514aff6e79f8dfc5d084 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_b96cbfac14de548900f8ff15502812f9 = $(`<div id="html_b96cbfac14de548900f8ff15502812f9" style="width: 100.0%; height: 100.0%;">🏥 КНП Охтирської міської ради «Охтирська центральна районна лікарня»<br><b>Кластерний ЗОЗ</b><br>Сумська обл., місто Охтирка, вулиця Петропавлівська, будинок 15</div>`)[0];
+                popup_4e2d568b2289514aff6e79f8dfc5d084.setContent(html_b96cbfac14de548900f8ff15502812f9);
+            
+        
+
+        marker_3e33f26837fb90b2894b7b1b7a8d593a.bindPopup(popup_4e2d568b2289514aff6e79f8dfc5d084)
+        ;
+
+        
+    
+    
+                marker_3e33f26837fb90b2894b7b1b7a8d593a.setIcon(icon_a02eea623c549b7acab2a46d958ca32e);
+            
+    
+            var marker_510cd96c394b37de5ff18451d2f53905 = L.marker(
+                [51.1464177, 34.3237289],
+                {
+}
+            ).addTo(feature_group_3652472f61a9e45a516cc89e3fb73c69);
+        
+    
+            var icon_bc0c931cf189e615200e5a10b4f6773b = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "green",
+  "iconColor": "white",
+  "icon": "plus-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_400e1915ecf7a0d743281352b9d52985 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_10615d2e122d561e9b8fcb540ac3084d = $(`<div id="html_10615d2e122d561e9b8fcb540ac3084d" style="width: 100.0%; height: 100.0%;">🏥 КНП Білопільської міської ради «Білопільська міська лікарня»<br><b>Загальний ЗОЗ</b><br>Сумська обл., Сумський р-н, місто Білопілля, вул.Маяковського, будинок 27</div>`)[0];
+                popup_400e1915ecf7a0d743281352b9d52985.setContent(html_10615d2e122d561e9b8fcb540ac3084d);
+            
+        
+
+        marker_510cd96c394b37de5ff18451d2f53905.bindPopup(popup_400e1915ecf7a0d743281352b9d52985)
+        ;
+
+        
+    
+    
+                marker_510cd96c394b37de5ff18451d2f53905.setIcon(icon_bc0c931cf189e615200e5a10b4f6773b);
+            
+    
+            feature_group_3652472f61a9e45a516cc89e3fb73c69.addTo(map_5705fb18baf83fa4af60e73dd9142901);
+        
+    
+            var layer_control_e6ddadf8469f0ac6f193077729f97cb6_layers = {
+                base_layers : {
+                    "openstreetmap" : tile_layer_793fae4238ab6a1efa1f707ddc9b6425,
+                },
+                overlays :  {
+                    "\u041e\u0414\u0421" : feature_group_sub_group_078622d44e0f925811d3632baadd2153,
+                    "\u041f\u0443\u043d\u043a\u0442 \u0431\u0430\u0437\u0443\u0432\u0430\u043d\u043d\u044f" : feature_group_sub_group_75b7eff6d6b7ff85f6987a946df48bcd,
+                    "\u041f\u0456\u0434\u0441\u0442\u0430\u043d\u0446\u0456\u044f" : feature_group_sub_group_4673bca286bcfc20d64107b65d600710,
+                    "\u0421\u0442\u0430\u043d\u0446\u0456\u044f" : feature_group_sub_group_fc9e26f3739b2d04146612a89ad50858,
+                    "\u0426\u0415\u041c\u0414" : feature_group_sub_group_0b4bd63f517a221b04c6ae7e06051efe,
+                    "Hospitals" : feature_group_3652472f61a9e45a516cc89e3fb73c69,
+                },
+            };
+            let layer_control_e6ddadf8469f0ac6f193077729f97cb6 = L.control.layers(
+                layer_control_e6ddadf8469f0ac6f193077729f97cb6_layers.base_layers,
+                layer_control_e6ddadf8469f0ac6f193077729f97cb6_layers.overlays,
+                {
+  "position": "topright",
+  "collapsed": false,
+  "autoZIndex": true,
+}
+            ).addTo(map_5705fb18baf83fa4af60e73dd9142901);
+
+        
+</script>
+</html>
