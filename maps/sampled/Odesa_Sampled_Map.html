@@ -1,0 +1,1135 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    
+        <script>
+            L_NO_TOUCH = false;
+            L_DISABLE_3D = false;
+        </script>
+    
+    <style>html, body {width: 100%;height: 100%;margin: 0;padding: 0;}</style>
+    <style>#map {position:absolute;top:0;bottom:0;right:0;left:0;}</style>
+    <script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.0/css/all.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/python-visualization/folium/folium/templates/leaflet.awesome.rotate.min.css"/>
+    
+            <meta name="viewport" content="width=device-width,
+                initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+            <style>
+                #map_e7c908bf2f4caa4d86eabfa8729ae975 {
+                    position: relative;
+                    width: 100.0%;
+                    height: 100.0%;
+                    left: 0.0%;
+                    top: 0.0%;
+                }
+                .leaflet-container { font-size: 1rem; }
+            </style>
+        
+    <script src="https://unpkg.com/leaflet.featuregroup.subgroup@1.0.2/dist/leaflet.featuregroup.subgroup.js"></script>
+</head>
+<body>
+    
+    
+    <div style="position: fixed;
+                bottom: 50px; left: 50px; width: 220px;
+                background-color: white; z-index:9999; font-size:14px;
+                border:2px solid grey; padding: 10px;">
+    <h4>Legend</h4>
+    <b>EMS Centers</b><br>
+    <i style="background:darkred; color:white; padding: 5px;">&nbsp;&nbsp;&nbsp;</i> ЦЕМД<br>
+    <i style="background:red; color:white; padding: 5px;">&nbsp;&nbsp;&nbsp;</i> Станція<br>
+    <i style="background:orange; color:black; padding: 5px;">&nbsp;&nbsp;&nbsp;</i> Підстанція<br>
+    <i style="background:yellow; color:black; padding: 5px;">&nbsp;&nbsp;&nbsp;</i> Пункт базування<br>
+    <i style="background:green; color:white; padding: 5px;">&nbsp;&nbsp;&nbsp;</i> ОДС<br><br>
+    <b>Hospitals</b><br>
+    <i style="background:purple; color:white; padding: 5px;">&nbsp;&nbsp;&nbsp;</i> Надкластерний ЗОЗ<br>
+    <i style="background:blue; color:white; padding: 5px;">&nbsp;&nbsp;&nbsp;</i> Кластерний ЗОЗ<br>
+    <i style="background:green; color:white; padding: 5px;">&nbsp;&nbsp;&nbsp;</i> Загальний ЗОЗ<br>
+    </div>
+    
+    
+            <div class="folium-map" id="map_e7c908bf2f4caa4d86eabfa8729ae975" ></div>
+        
+</body>
+<script>
+    
+    
+            var map_e7c908bf2f4caa4d86eabfa8729ae975 = L.map(
+                "map_e7c908bf2f4caa4d86eabfa8729ae975",
+                {
+                    center: [47.0, 30.0],
+                    crs: L.CRS.EPSG3857,
+                    ...{
+  "zoom": 7,
+  "zoomControl": true,
+  "preferCanvas": false,
+}
+
+                }
+            );
+
+            
+
+        
+    
+            var tile_layer_665d6d17cb2a424f9bd654f895da48d7 = L.tileLayer(
+                "https://tile.openstreetmap.org/{z}/{x}/{y}.png",
+                {
+  "minZoom": 0,
+  "maxZoom": 19,
+  "maxNativeZoom": 19,
+  "noWrap": false,
+  "attribution": "\u0026copy; \u003ca href=\"https://www.openstreetmap.org/copyright\"\u003eOpenStreetMap\u003c/a\u003e contributors",
+  "subdomains": "abc",
+  "detectRetina": false,
+  "tms": false,
+  "opacity": 1,
+}
+
+            );
+        
+    
+            tile_layer_665d6d17cb2a424f9bd654f895da48d7.addTo(map_e7c908bf2f4caa4d86eabfa8729ae975);
+        
+    
+            var feature_group_9171a7f322bae5843d8bb50c4f79d4f1 = L.featureGroup(
+                {
+}
+            );
+        
+    
+            feature_group_9171a7f322bae5843d8bb50c4f79d4f1.addTo(map_e7c908bf2f4caa4d86eabfa8729ae975);
+        
+    
+            var feature_group_sub_group_04967da62bcc5643be2131b3fd578d33 = L.featureGroup.subGroup(
+                feature_group_9171a7f322bae5843d8bb50c4f79d4f1
+            );
+        
+    
+            feature_group_sub_group_04967da62bcc5643be2131b3fd578d33.addTo(map_e7c908bf2f4caa4d86eabfa8729ae975);
+        
+    
+            var feature_group_sub_group_328f4d348c39e8eee8d39ffaa4bc8dc5 = L.featureGroup.subGroup(
+                feature_group_9171a7f322bae5843d8bb50c4f79d4f1
+            );
+        
+    
+            var circle_marker_2f50544fd69c44461847d9afdade6d32 = L.circleMarker(
+                [45.9425619, 28.8557313],
+                {"bubblingMouseEvents": true, "color": "yellow", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "yellow", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 3}
+            ).addTo(feature_group_sub_group_328f4d348c39e8eee8d39ffaa4bc8dc5);
+        
+    
+        var popup_8f571fd1dbf0394043cf24e6ce80270a = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_6168f1138d1a119e75ffb6f9bdfca8dc = $(`<div id="html_6168f1138d1a119e75ffb6f9bdfca8dc" style="width: 100.0%; height: 100.0%;">EMS: Пункт базування<br>с.Н.Трояни, Молодежна 13, с. НОВІ ТРОЯНИ, Одеська область</div>`)[0];
+                popup_8f571fd1dbf0394043cf24e6ce80270a.setContent(html_6168f1138d1a119e75ffb6f9bdfca8dc);
+            
+        
+
+        circle_marker_2f50544fd69c44461847d9afdade6d32.bindPopup(popup_8f571fd1dbf0394043cf24e6ce80270a)
+        ;
+
+        
+    
+    
+            var circle_marker_0a958bd0e47c7a3969ac6c3f3ba183ec = L.circleMarker(
+                [46.472311, 30.5720141],
+                {"bubblingMouseEvents": true, "color": "yellow", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "yellow", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 3}
+            ).addTo(feature_group_sub_group_328f4d348c39e8eee8d39ffaa4bc8dc5);
+        
+    
+        var popup_aeaa47440c55f2a7f6eb4e81c8e68be6 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_bd47de6ad3b05ee2fa0a2828c91e16f5 = $(`<div id="html_bd47de6ad3b05ee2fa0a2828c91e16f5" style="width: 100.0%; height: 100.0%;">EMS: Пункт базування<br>с.Великий Дальник, Безверхого 32, с. ВЕЛИКИЙ ДАЛЬНИК, Одеська область</div>`)[0];
+                popup_aeaa47440c55f2a7f6eb4e81c8e68be6.setContent(html_bd47de6ad3b05ee2fa0a2828c91e16f5);
+            
+        
+
+        circle_marker_0a958bd0e47c7a3969ac6c3f3ba183ec.bindPopup(popup_aeaa47440c55f2a7f6eb4e81c8e68be6)
+        ;
+
+        
+    
+    
+            var circle_marker_81f0adcd0cba8ccb03c0f100a850c127 = L.circleMarker(
+                [45.3370744, 28.5719417],
+                {"bubblingMouseEvents": true, "color": "yellow", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "yellow", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 3}
+            ).addTo(feature_group_sub_group_328f4d348c39e8eee8d39ffaa4bc8dc5);
+        
+    
+        var popup_c4706595dc69ac67cb8f98cd739d6929 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_70eece171755cea3e46c432af706f5f2 = $(`<div id="html_70eece171755cea3e46c432af706f5f2" style="width: 100.0%; height: 100.0%;">EMS: Пункт базування<br>с.Новосельське Кокаи 35, с. НОВОСІЛЬСЬКЕ, Одеська область</div>`)[0];
+                popup_c4706595dc69ac67cb8f98cd739d6929.setContent(html_70eece171755cea3e46c432af706f5f2);
+            
+        
+
+        circle_marker_81f0adcd0cba8ccb03c0f100a850c127.bindPopup(popup_c4706595dc69ac67cb8f98cd739d6929)
+        ;
+
+        
+    
+    
+            var circle_marker_1987c6d63367228f7a5311df11ae8893 = L.circleMarker(
+                [46.9716211, 30.9565402],
+                {"bubblingMouseEvents": true, "color": "yellow", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "yellow", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 3}
+            ).addTo(feature_group_sub_group_328f4d348c39e8eee8d39ffaa4bc8dc5);
+        
+    
+        var popup_bf2daadeeb359c66a64615abc66db455 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_e316ed4112b5b25e190ab4443f192b2a = $(`<div id="html_e316ed4112b5b25e190ab4443f192b2a" style="width: 100.0%; height: 100.0%;">EMS: Пункт базування<br>смт.Курісове, Янчева 4, с. КУРІСОВЕ, Одеська область</div>`)[0];
+                popup_bf2daadeeb359c66a64615abc66db455.setContent(html_e316ed4112b5b25e190ab4443f192b2a);
+            
+        
+
+        circle_marker_1987c6d63367228f7a5311df11ae8893.bindPopup(popup_bf2daadeeb359c66a64615abc66db455)
+        ;
+
+        
+    
+    
+            var circle_marker_94c7cfd6edb956d3606ef1c24c31f5ac = L.circleMarker(
+                [46.53554399999999, 30.6510269],
+                {"bubblingMouseEvents": true, "color": "yellow", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "yellow", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 3}
+            ).addTo(feature_group_sub_group_328f4d348c39e8eee8d39ffaa4bc8dc5);
+        
+    
+        var popup_a9f16b4e8a034491c26fd45c6b9cca97 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_0bc3438486124c7d141b68b7cc156358 = $(`<div id="html_0bc3438486124c7d141b68b7cc156358" style="width: 100.0%; height: 100.0%;">EMS: Пункт базування<br>Лікарняна 19, с. УСАТОВЕ, Одеська область</div>`)[0];
+                popup_a9f16b4e8a034491c26fd45c6b9cca97.setContent(html_0bc3438486124c7d141b68b7cc156358);
+            
+        
+
+        circle_marker_94c7cfd6edb956d3606ef1c24c31f5ac.bindPopup(popup_a9f16b4e8a034491c26fd45c6b9cca97)
+        ;
+
+        
+    
+    
+            var circle_marker_93d2490369db95e0547ed5a447e2ff90 = L.circleMarker(
+                [46.091028, 30.049059],
+                {"bubblingMouseEvents": true, "color": "yellow", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "yellow", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 3}
+            ).addTo(feature_group_sub_group_328f4d348c39e8eee8d39ffaa4bc8dc5);
+        
+    
+        var popup_760a79e3a3ac5e89fd44eb9f7b1deee8 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_e19f31c4eb21f3c6482b547cc3d70c83 = $(`<div id="html_e19f31c4eb21f3c6482b547cc3d70c83" style="width: 100.0%; height: 100.0%;">EMS: Пункт базування<br>с.Маразліївка, Жовтнева 80, с. МАРАЗЛІЇВКА, Одеська область</div>`)[0];
+                popup_760a79e3a3ac5e89fd44eb9f7b1deee8.setContent(html_e19f31c4eb21f3c6482b547cc3d70c83);
+            
+        
+
+        circle_marker_93d2490369db95e0547ed5a447e2ff90.bindPopup(popup_760a79e3a3ac5e89fd44eb9f7b1deee8)
+        ;
+
+        
+    
+    
+            var circle_marker_55ea02364e0a51faa25f08f26a84c72a = L.circleMarker(
+                [46.4655334, 30.6114288],
+                {"bubblingMouseEvents": true, "color": "yellow", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "yellow", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 3}
+            ).addTo(feature_group_sub_group_328f4d348c39e8eee8d39ffaa4bc8dc5);
+        
+    
+        var popup_78d959aa1b110a4372ac6b764509938c = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_0864270ccaf66e80f4cc6d6375efac53 = $(`<div id="html_0864270ccaf66e80f4cc6d6375efac53" style="width: 100.0%; height: 100.0%;">EMS: Пункт базування<br>Спортивна 20, смт. АВАНГАРД, Одеська область</div>`)[0];
+                popup_78d959aa1b110a4372ac6b764509938c.setContent(html_0864270ccaf66e80f4cc6d6375efac53);
+            
+        
+
+        circle_marker_55ea02364e0a51faa25f08f26a84c72a.bindPopup(popup_78d959aa1b110a4372ac6b764509938c)
+        ;
+
+        
+    
+    
+            var circle_marker_6c7db38dd07461445b5532b746de1606 = L.circleMarker(
+                [45.81996900000001, 29.256533],
+                {"bubblingMouseEvents": true, "color": "yellow", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "yellow", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 3}
+            ).addTo(feature_group_sub_group_328f4d348c39e8eee8d39ffaa4bc8dc5);
+        
+    
+        var popup_654953077712dc14d63ecc78e09b5475 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_d03b4aca98669c5728d0ad7a1eabed02 = $(`<div id="html_d03b4aca98669c5728d0ad7a1eabed02" style="width: 100.0%; height: 100.0%;">EMS: Пункт базування<br>с.Камянське(Арцизького р-н.), Бориса Топора, 46а, с. КАМ'ЯНСЬКЕ, Одеська область</div>`)[0];
+                popup_654953077712dc14d63ecc78e09b5475.setContent(html_d03b4aca98669c5728d0ad7a1eabed02);
+            
+        
+
+        circle_marker_6c7db38dd07461445b5532b746de1606.bindPopup(popup_654953077712dc14d63ecc78e09b5475)
+        ;
+
+        
+    
+    
+            var circle_marker_4c890395e136b60c92a3ad2e6d8c1064 = L.circleMarker(
+                [46.6211188, 30.7719233],
+                {"bubblingMouseEvents": true, "color": "yellow", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "yellow", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 3}
+            ).addTo(feature_group_sub_group_328f4d348c39e8eee8d39ffaa4bc8dc5);
+        
+    
+        var popup_952557efa802235cff877206b9687f8a = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_2314da5f881084a0cff7adb163510dc1 = $(`<div id="html_2314da5f881084a0cff7adb163510dc1" style="width: 100.0%; height: 100.0%;">EMS: Пункт базування<br>с.Красносілка, Шкільна 1б, с. КРАСНОСІЛКА, Одеська область</div>`)[0];
+                popup_952557efa802235cff877206b9687f8a.setContent(html_2314da5f881084a0cff7adb163510dc1);
+            
+        
+
+        circle_marker_4c890395e136b60c92a3ad2e6d8c1064.bindPopup(popup_952557efa802235cff877206b9687f8a)
+        ;
+
+        
+    
+    
+            var circle_marker_50c93109e1b50efb3a72beb58c0f3d77 = L.circleMarker(
+                [46.0685748, 30.45672649999999],
+                {"bubblingMouseEvents": true, "color": "yellow", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "yellow", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 3}
+            ).addTo(feature_group_sub_group_328f4d348c39e8eee8d39ffaa4bc8dc5);
+        
+    
+        var popup_7dc4d9517f475d6617598ab65b7da316 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_0aa3b5ca1aecba73994ddbe78f6fd848 = $(`<div id="html_0aa3b5ca1aecba73994ddbe78f6fd848" style="width: 100.0%; height: 100.0%;">EMS: Пункт базування<br>смт.Затока, Виноградна 68, смт. ЗАТОКА, Одеська область</div>`)[0];
+                popup_7dc4d9517f475d6617598ab65b7da316.setContent(html_0aa3b5ca1aecba73994ddbe78f6fd848);
+            
+        
+
+        circle_marker_50c93109e1b50efb3a72beb58c0f3d77.bindPopup(popup_7dc4d9517f475d6617598ab65b7da316)
+        ;
+
+        
+    
+    
+            var circle_marker_aace915d70719e7986123d3845759100 = L.circleMarker(
+                [46.1904857, 30.3426754],
+                {"bubblingMouseEvents": true, "color": "yellow", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "yellow", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 3}
+            ).addTo(feature_group_sub_group_328f4d348c39e8eee8d39ffaa4bc8dc5);
+        
+    
+        var popup_cedef20bb1f8190a7d9a6ac21ebd4cf8 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_ff0e237b22cada0e041f5d8ef92fcd87 = $(`<div id="html_ff0e237b22cada0e041f5d8ef92fcd87" style="width: 100.0%; height: 100.0%;">EMS: Пункт базування<br>Святогеоргіївська 4, м. БІЛГОРОД-ДНІСТРОВСЬКИЙ, Одеська область</div>`)[0];
+                popup_cedef20bb1f8190a7d9a6ac21ebd4cf8.setContent(html_ff0e237b22cada0e041f5d8ef92fcd87);
+            
+        
+
+        circle_marker_aace915d70719e7986123d3845759100.bindPopup(popup_cedef20bb1f8190a7d9a6ac21ebd4cf8)
+        ;
+
+        
+    
+    
+            var circle_marker_d846cf9eaf438f7101f1596e240fe964 = L.circleMarker(
+                [46.3696282, 29.7678511],
+                {"bubblingMouseEvents": true, "color": "yellow", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "yellow", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 3}
+            ).addTo(feature_group_sub_group_328f4d348c39e8eee8d39ffaa4bc8dc5);
+        
+    
+        var popup_8a68cd322f3dbb5564e42d45dd42bf43 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_94f12b61b9db98ab7207b2a9ab07f964 = $(`<div id="html_94f12b61b9db98ab7207b2a9ab07f964" style="width: 100.0%; height: 100.0%;">EMS: Пункт базування<br>с.Русько-Іванівка, с. РУСЬКОІВАНІВКА, Одеська область</div>`)[0];
+                popup_8a68cd322f3dbb5564e42d45dd42bf43.setContent(html_94f12b61b9db98ab7207b2a9ab07f964);
+            
+        
+
+        circle_marker_d846cf9eaf438f7101f1596e240fe964.bindPopup(popup_8a68cd322f3dbb5564e42d45dd42bf43)
+        ;
+
+        
+    
+    
+            var circle_marker_4d42481e4cc0bcb5e16431c5d8827b20 = L.circleMarker(
+                [46.3335748, 29.9793345],
+                {"bubblingMouseEvents": true, "color": "yellow", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "yellow", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 3}
+            ).addTo(feature_group_sub_group_328f4d348c39e8eee8d39ffaa4bc8dc5);
+        
+    
+        var popup_ff56a89bb9700da54fb7202f09ff01d0 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_f61fa919d9ffea525f0ca246529d8f2d = $(`<div id="html_f61fa919d9ffea525f0ca246529d8f2d" style="width: 100.0%; height: 100.0%;">EMS: Пункт базування<br>с.Старокозаче, Лікарняна 1, с. СТАРОКОЗАЧЕ, Одеська область</div>`)[0];
+                popup_ff56a89bb9700da54fb7202f09ff01d0.setContent(html_f61fa919d9ffea525f0ca246529d8f2d);
+            
+        
+
+        circle_marker_4d42481e4cc0bcb5e16431c5d8827b20.bindPopup(popup_ff56a89bb9700da54fb7202f09ff01d0)
+        ;
+
+        
+    
+    
+            var circle_marker_76e71032c90add24c4bbb01237a38475 = L.circleMarker(
+                [46.9998373, 30.3407464],
+                {"bubblingMouseEvents": true, "color": "yellow", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "yellow", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 3}
+            ).addTo(feature_group_sub_group_328f4d348c39e8eee8d39ffaa4bc8dc5);
+        
+    
+        var popup_644027dd1e95439d946cbc4e8075048e = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_af648cc5c66e818a41d58501e1ef53cc = $(`<div id="html_af648cc5c66e818a41d58501e1ef53cc" style="width: 100.0%; height: 100.0%;">EMS: Пункт базування<br>смт.Радісне, Перемоги 6, смт. РАДІСНЕ, Одеська область</div>`)[0];
+                popup_644027dd1e95439d946cbc4e8075048e.setContent(html_af648cc5c66e818a41d58501e1ef53cc);
+            
+        
+
+        circle_marker_76e71032c90add24c4bbb01237a38475.bindPopup(popup_644027dd1e95439d946cbc4e8075048e)
+        ;
+
+        
+    
+    
+            feature_group_sub_group_328f4d348c39e8eee8d39ffaa4bc8dc5.addTo(map_e7c908bf2f4caa4d86eabfa8729ae975);
+        
+    
+            var feature_group_sub_group_37e25961d7a9614b72daecb98fedea01 = L.featureGroup.subGroup(
+                feature_group_9171a7f322bae5843d8bb50c4f79d4f1
+            );
+        
+    
+            var circle_marker_b5010ea7ec8c5f63867c3029af9ecbe9 = L.circleMarker(
+                [48.1343362, 30.08311],
+                {"bubblingMouseEvents": true, "color": "orange", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "orange", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 3}
+            ).addTo(feature_group_sub_group_37e25961d7a9614b72daecb98fedea01);
+        
+    
+        var popup_043fb5bccceb9f927d5de70468068e46 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_514da642f209f9465f36e6046b49c29b = $(`<div id="html_514da642f209f9465f36e6046b49c29b" style="width: 100.0%; height: 100.0%;">EMS: Підстанція<br>смт.Саврань, Соборна 15, смт. САВРАНЬ, Одеська область</div>`)[0];
+                popup_043fb5bccceb9f927d5de70468068e46.setContent(html_514da642f209f9465f36e6046b49c29b);
+            
+        
+
+        circle_marker_b5010ea7ec8c5f63867c3029af9ecbe9.bindPopup(popup_043fb5bccceb9f927d5de70468068e46)
+        ;
+
+        
+    
+    
+            var circle_marker_129e1a5a007cfdeb40920d806aa8001f = L.circleMarker(
+                [46.5035507, 30.7230144],
+                {"bubblingMouseEvents": true, "color": "orange", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "orange", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 3}
+            ).addTo(feature_group_sub_group_37e25961d7a9614b72daecb98fedea01);
+        
+    
+        var popup_88568caf07b84c8b4874b380164d03c5 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_b105f8e6f266ae03c4c6e9ee22ec121a = $(`<div id="html_b105f8e6f266ae03c4c6e9ee22ec121a" style="width: 100.0%; height: 100.0%;">EMS: Підстанція<br>Ат.Головатого 32, м. ОДЕСА, Одеська область</div>`)[0];
+                popup_88568caf07b84c8b4874b380164d03c5.setContent(html_b105f8e6f266ae03c4c6e9ee22ec121a);
+            
+        
+
+        circle_marker_129e1a5a007cfdeb40920d806aa8001f.bindPopup(popup_88568caf07b84c8b4874b380164d03c5)
+        ;
+
+        
+    
+    
+            var circle_marker_a3c24890350f0a5a75327fc4dcd05c85 = L.circleMarker(
+                [46.4318934, 30.7318334],
+                {"bubblingMouseEvents": true, "color": "orange", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "orange", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 3}
+            ).addTo(feature_group_sub_group_37e25961d7a9614b72daecb98fedea01);
+        
+    
+        var popup_a5251cf2295c08f477dcab21123ef238 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_4989d91ac54bd8a17d166bc8cc0b2636 = $(`<div id="html_4989d91ac54bd8a17d166bc8cc0b2636" style="width: 100.0%; height: 100.0%;">EMS: Підстанція<br>Павла Шклярука 4а, м. ОДЕСА, Одеська область</div>`)[0];
+                popup_a5251cf2295c08f477dcab21123ef238.setContent(html_4989d91ac54bd8a17d166bc8cc0b2636);
+            
+        
+
+        circle_marker_a3c24890350f0a5a75327fc4dcd05c85.bindPopup(popup_a5251cf2295c08f477dcab21123ef238)
+        ;
+
+        
+    
+    
+            var circle_marker_44f1e62dfaf5380b449e483f64ef0e64 = L.circleMarker(
+                [46.4670466, 30.6780134],
+                {"bubblingMouseEvents": true, "color": "orange", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "orange", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 3}
+            ).addTo(feature_group_sub_group_37e25961d7a9614b72daecb98fedea01);
+        
+    
+        var popup_c3f777b7e3337c855917deb3d5d7b931 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_22c0c50e8ba1ba6785b81d2817d75e5b = $(`<div id="html_22c0c50e8ba1ba6785b81d2817d75e5b" style="width: 100.0%; height: 100.0%;">EMS: Підстанція<br>Іоганна Гена 19, м. ОДЕСА, Одеська область</div>`)[0];
+                popup_c3f777b7e3337c855917deb3d5d7b931.setContent(html_22c0c50e8ba1ba6785b81d2817d75e5b);
+            
+        
+
+        circle_marker_44f1e62dfaf5380b449e483f64ef0e64.bindPopup(popup_c3f777b7e3337c855917deb3d5d7b931)
+        ;
+
+        
+    
+    
+            var circle_marker_a4520febb2b91f003b6db12438f0be56 = L.circleMarker(
+                [46.190593, 29.1519649],
+                {"bubblingMouseEvents": true, "color": "orange", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "orange", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 3}
+            ).addTo(feature_group_sub_group_37e25961d7a9614b72daecb98fedea01);
+        
+    
+        var popup_dbc622040f5a75dde07a04bd31775bc6 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_b74056f2732cedbc24e7a7c1cdb49d05 = $(`<div id="html_b74056f2732cedbc24e7a7c1cdb49d05" style="width: 100.0%; height: 100.0%;">EMS: Підстанція<br>смт.Тарутино, Червона 75, смт. ТАРУТИНЕ, Одеська область</div>`)[0];
+                popup_dbc622040f5a75dde07a04bd31775bc6.setContent(html_b74056f2732cedbc24e7a7c1cdb49d05);
+            
+        
+
+        circle_marker_a4520febb2b91f003b6db12438f0be56.bindPopup(popup_dbc622040f5a75dde07a04bd31775bc6)
+        ;
+
+        
+    
+    
+            var circle_marker_b2a445bf3ed0ac23d22ed5398543c56c = L.circleMarker(
+                [45.4570424, 28.2702853],
+                {"bubblingMouseEvents": true, "color": "orange", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "orange", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 3}
+            ).addTo(feature_group_sub_group_37e25961d7a9614b72daecb98fedea01);
+        
+    
+        var popup_38122fcb80e343bc2258b0915edfd2e7 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_57522b281711f1210f6021795ba84c06 = $(`<div id="html_57522b281711f1210f6021795ba84c06" style="width: 100.0%; height: 100.0%;">EMS: Підстанція<br>м.Рені, Дунайська 15, м. РЕНІ, Одеська область</div>`)[0];
+                popup_38122fcb80e343bc2258b0915edfd2e7.setContent(html_57522b281711f1210f6021795ba84c06);
+            
+        
+
+        circle_marker_b2a445bf3ed0ac23d22ed5398543c56c.bindPopup(popup_38122fcb80e343bc2258b0915edfd2e7)
+        ;
+
+        
+    
+    
+            feature_group_sub_group_37e25961d7a9614b72daecb98fedea01.addTo(map_e7c908bf2f4caa4d86eabfa8729ae975);
+        
+    
+            var feature_group_sub_group_14326e91e0c24134761e9f89ff5f5f22 = L.featureGroup.subGroup(
+                feature_group_9171a7f322bae5843d8bb50c4f79d4f1
+            );
+        
+    
+            var circle_marker_6748abf4c37fe2efa1a2eb84330c85be = L.circleMarker(
+                [46.493528, 30.7234415],
+                {"bubblingMouseEvents": true, "color": "red", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "red", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 3}
+            ).addTo(feature_group_sub_group_14326e91e0c24134761e9f89ff5f5f22);
+        
+    
+        var popup_f6cc80c23f9cfaed885c566aec2e4a42 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_5935225e9c54f39c3b28992a6a012777 = $(`<div id="html_5935225e9c54f39c3b28992a6a012777" style="width: 100.0%; height: 100.0%;">EMS: Станція<br>пров.Валіховський 10, м. ОДЕСА, Одеська область</div>`)[0];
+                popup_f6cc80c23f9cfaed885c566aec2e4a42.setContent(html_5935225e9c54f39c3b28992a6a012777);
+            
+        
+
+        circle_marker_6748abf4c37fe2efa1a2eb84330c85be.bindPopup(popup_f6cc80c23f9cfaed885c566aec2e4a42)
+        ;
+
+        
+    
+    
+            var circle_marker_1f4b8e7e3fe38f898472dfe128009286 = L.circleMarker(
+                [47.0574484, 29.877313],
+                {"bubblingMouseEvents": true, "color": "red", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "red", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 3}
+            ).addTo(feature_group_sub_group_14326e91e0c24134761e9f89ff5f5f22);
+        
+    
+        var popup_ea0115207f81bbbd66840180c65823ad = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_a5db3b2b4d0a1225c39854426ee85b90 = $(`<div id="html_a5db3b2b4d0a1225c39854426ee85b90" style="width: 100.0%; height: 100.0%;">EMS: Станція<br>смт.Велика Михайлівка, Центральна 248, смт. ВЕЛИКА МИХАЙЛІВКА, Одеська область</div>`)[0];
+                popup_ea0115207f81bbbd66840180c65823ad.setContent(html_a5db3b2b4d0a1225c39854426ee85b90);
+            
+        
+
+        circle_marker_1f4b8e7e3fe38f898472dfe128009286.bindPopup(popup_ea0115207f81bbbd66840180c65823ad)
+        ;
+
+        
+    
+    
+            feature_group_sub_group_14326e91e0c24134761e9f89ff5f5f22.addTo(map_e7c908bf2f4caa4d86eabfa8729ae975);
+        
+    
+            var feature_group_sub_group_b0cc26016dac31f198bde38a554140f7 = L.featureGroup.subGroup(
+                feature_group_9171a7f322bae5843d8bb50c4f79d4f1
+            );
+        
+    
+            var circle_marker_650aef0d6302f40cc961525bb9dad3c1 = L.circleMarker(
+                [46.4866871, 30.7363113],
+                {"bubblingMouseEvents": true, "color": "darkred", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "darkred", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 3}
+            ).addTo(feature_group_sub_group_b0cc26016dac31f198bde38a554140f7);
+        
+    
+        var popup_fcaf7a2e17629ca98ec291fb664d3749 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_d14caaa9f68ff6177182d27cf2e86b97 = $(`<div id="html_d14caaa9f68ff6177182d27cf2e86b97" style="width: 100.0%; height: 100.0%;">EMS: ЦЕМД<br>Гаванна 1, м. ОДЕСА, Одеська область</div>`)[0];
+                popup_fcaf7a2e17629ca98ec291fb664d3749.setContent(html_d14caaa9f68ff6177182d27cf2e86b97);
+            
+        
+
+        circle_marker_650aef0d6302f40cc961525bb9dad3c1.bindPopup(popup_fcaf7a2e17629ca98ec291fb664d3749)
+        ;
+
+        
+    
+    
+            feature_group_sub_group_b0cc26016dac31f198bde38a554140f7.addTo(map_e7c908bf2f4caa4d86eabfa8729ae975);
+        
+    
+            var feature_group_214c1e903149ccf75b6fb19899bc5ed9 = L.featureGroup(
+                {
+}
+            );
+        
+    
+            var marker_df9b44933114937cfb46d09fa4299344 = L.marker(
+                [47.7365375, 29.5510941],
+                {
+}
+            ).addTo(feature_group_214c1e903149ccf75b6fb19899bc5ed9);
+        
+    
+            var icon_df8eb0777ff8c8bef7b56cdc0ebe5177 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "plus-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_921bbd18ec0f75ea06b849ed8f010e33 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_e5903ce8333d0d6f0451d9639da8529b = $(`<div id="html_e5903ce8333d0d6f0451d9639da8529b" style="width: 100.0%; height: 100.0%;">🏥 Комунальне некомерційне підприємство "Подільська міська лікарня" Подільської міської ради Подільського району Одеської області<br><b>Кластерний ЗОЗ</b><br>Одеська обл., місто Подільськ, проспект Перемоги, будинок 23</div>`)[0];
+                popup_921bbd18ec0f75ea06b849ed8f010e33.setContent(html_e5903ce8333d0d6f0451d9639da8529b);
+            
+        
+
+        marker_df9b44933114937cfb46d09fa4299344.bindPopup(popup_921bbd18ec0f75ea06b849ed8f010e33)
+        ;
+
+        
+    
+    
+                marker_df9b44933114937cfb46d09fa4299344.setIcon(icon_df8eb0777ff8c8bef7b56cdc0ebe5177);
+            
+    
+            var marker_6caa3c1c8481af38fe2ebc0a8d6e17b2 = L.marker(
+                [46.4967408, 30.6903904],
+                {
+}
+            ).addTo(feature_group_214c1e903149ccf75b6fb19899bc5ed9);
+        
+    
+            var icon_51c839e4492c013ba866326668897f20 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "purple",
+  "iconColor": "white",
+  "icon": "plus-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_4d8e1253930b2ebbd01e001c622cda40 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_91a69b73ccf03d787c96d41ddc55e40c = $(`<div id="html_91a69b73ccf03d787c96d41ddc55e40c" style="width: 100.0%; height: 100.0%;">🏥 Комунальне некомерційне підприємство "Одеський регіональний клінічний протипухлинний центр" Одеської обласної ради<br><b>Надкластерний ЗОЗ</b><br>Одеська обл., місто Одеса, вулиця Нежданової, будинок 32</div>`)[0];
+                popup_4d8e1253930b2ebbd01e001c622cda40.setContent(html_91a69b73ccf03d787c96d41ddc55e40c);
+            
+        
+
+        marker_6caa3c1c8481af38fe2ebc0a8d6e17b2.bindPopup(popup_4d8e1253930b2ebbd01e001c622cda40)
+        ;
+
+        
+    
+    
+                marker_6caa3c1c8481af38fe2ebc0a8d6e17b2.setIcon(icon_51c839e4492c013ba866326668897f20);
+            
+    
+            var marker_1acc4014b7bace8145ec5cb3a125f778 = L.marker(
+                [45.4322162, 29.2765748],
+                {
+}
+            ).addTo(feature_group_214c1e903149ccf75b6fb19899bc5ed9);
+        
+    
+            var icon_2feef368bcc19885cdcaa97921eec384 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "green",
+  "iconColor": "white",
+  "icon": "plus-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_5e32ab0398c886b08f943073fa22ae47 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_d563ee4149232c690fe4074e2f87d08b = $(`<div id="html_d563ee4149232c690fe4074e2f87d08b" style="width: 100.0%; height: 100.0%;">🏥 КНП «Кілійська багатопрофільна лікарня»<br><b>Загальний ЗОЗ</b><br>Одеська обл., Ізмаїльський р-н, місто Кілія, вул.Кубишкіна, будинок 19</div>`)[0];
+                popup_5e32ab0398c886b08f943073fa22ae47.setContent(html_d563ee4149232c690fe4074e2f87d08b);
+            
+        
+
+        marker_1acc4014b7bace8145ec5cb3a125f778.bindPopup(popup_5e32ab0398c886b08f943073fa22ae47)
+        ;
+
+        
+    
+    
+                marker_1acc4014b7bace8145ec5cb3a125f778.setIcon(icon_2feef368bcc19885cdcaa97921eec384);
+            
+    
+            var marker_502de110abb85240d55adb9b5bcc6467 = L.marker(
+                [47.0574484, 29.877313],
+                {
+}
+            ).addTo(feature_group_214c1e903149ccf75b6fb19899bc5ed9);
+        
+    
+            var icon_0cd580e6c6bd836a910cf906f051e756 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "green",
+  "iconColor": "white",
+  "icon": "plus-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_370014fedcf8d3451c8207504be46284 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_80d21c6f485d98e8450cb88baed8f410 = $(`<div id="html_80d21c6f485d98e8450cb88baed8f410" style="width: 100.0%; height: 100.0%;">🏥 Комунальне некомерційне підприємство «Великомихайлівська багатопрофільна лікарня»<br><b>Загальний ЗОЗ</b><br>Одеська обл., Великомихайлівський р-н, селище міського типу Велика Михайлівка, вулиця Центральна, будинок 248</div>`)[0];
+                popup_370014fedcf8d3451c8207504be46284.setContent(html_80d21c6f485d98e8450cb88baed8f410);
+            
+        
+
+        marker_502de110abb85240d55adb9b5bcc6467.bindPopup(popup_370014fedcf8d3451c8207504be46284)
+        ;
+
+        
+    
+    
+                marker_502de110abb85240d55adb9b5bcc6467.setIcon(icon_0cd580e6c6bd836a910cf906f051e756);
+            
+    
+            var marker_0641277e0ca184445efeb48627e04bce = L.marker(
+                [46.4697062, 30.7326983],
+                {
+}
+            ).addTo(feature_group_214c1e903149ccf75b6fb19899bc5ed9);
+        
+    
+            var icon_25539b49a9890e416124489de7d352e0 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "plus-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_560ecdf50747972895c3fc61c0648e3a = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_86142256a487343aaffedea6286b16de = $(`<div id="html_86142256a487343aaffedea6286b16de" style="width: 100.0%; height: 100.0%;">🏥 Комунальне некомерційне підприємство "Міська клінічна лікарня № 1" Одеської міської ради<br><b>Кластерний ЗОЗ</b><br>Одеська обл., місто Одеса, вулиця М'ясоєдовська, будинок 32</div>`)[0];
+                popup_560ecdf50747972895c3fc61c0648e3a.setContent(html_86142256a487343aaffedea6286b16de);
+            
+        
+
+        marker_0641277e0ca184445efeb48627e04bce.bindPopup(popup_560ecdf50747972895c3fc61c0648e3a)
+        ;
+
+        
+    
+    
+                marker_0641277e0ca184445efeb48627e04bce.setIcon(icon_25539b49a9890e416124489de7d352e0);
+            
+    
+            var marker_200742e27807441c0e8a468f2f182dbd = L.marker(
+                [46.4711739, 30.7534835],
+                {
+}
+            ).addTo(feature_group_214c1e903149ccf75b6fb19899bc5ed9);
+        
+    
+            var icon_ccf41adc8abee77465fe43a4985fcf1a = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "purple",
+  "iconColor": "white",
+  "icon": "plus-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_55b89d3e5a6b72a19d4f6a1468e1a566 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_6660ef8d0e5f61548c476b0a87aeea77 = $(`<div id="html_6660ef8d0e5f61548c476b0a87aeea77" style="width: 100.0%; height: 100.0%;">🏥 Комунальне некомерційне підприємство "Одеський обласний центр соціально значущих хвороб" Одеської обл.ради<br><b>Надкластерний ЗОЗ</b><br>Одеська обл., місто Одеса, вулиця Леонтовича, будинок 9/1</div>`)[0];
+                popup_55b89d3e5a6b72a19d4f6a1468e1a566.setContent(html_6660ef8d0e5f61548c476b0a87aeea77);
+            
+        
+
+        marker_200742e27807441c0e8a468f2f182dbd.bindPopup(popup_55b89d3e5a6b72a19d4f6a1468e1a566)
+        ;
+
+        
+    
+    
+                marker_200742e27807441c0e8a468f2f182dbd.setIcon(icon_ccf41adc8abee77465fe43a4985fcf1a);
+            
+    
+            var marker_c949d34e800d23f88a6f13475861a98e = L.marker(
+                [45.5628982, 28.8867564],
+                {
+}
+            ).addTo(feature_group_214c1e903149ccf75b6fb19899bc5ed9);
+        
+    
+            var icon_9eb73bd22ee7e8807f213bd036d91435 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "green",
+  "iconColor": "white",
+  "icon": "plus-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_387745b8725874d7a4a6c5910044e913 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_b8be9be6af7b6b82ae42d4a7a914f038 = $(`<div id="html_b8be9be6af7b6b82ae42d4a7a914f038" style="width: 100.0%; height: 100.0%;">🏥 Комунальне некомерційне підприємство Саф'янівської сільської ради Ізмаїльського району Одеської області "Центральна районна лікарня"<br><b>Загальний ЗОЗ</b><br>Одеська обл., Ізмаїльський р-н, село Кам'янка, вулиця Успенська, будинок 95-А</div>`)[0];
+                popup_387745b8725874d7a4a6c5910044e913.setContent(html_b8be9be6af7b6b82ae42d4a7a914f038);
+            
+        
+
+        marker_c949d34e800d23f88a6f13475861a98e.bindPopup(popup_387745b8725874d7a4a6c5910044e913)
+        ;
+
+        
+    
+    
+                marker_c949d34e800d23f88a6f13475861a98e.setIcon(icon_9eb73bd22ee7e8807f213bd036d91435);
+            
+    
+            var marker_1ee9591827fc685f7c35eccd2928f2fd = L.marker(
+                [46.2966582, 30.6408718],
+                {
+}
+            ).addTo(feature_group_214c1e903149ccf75b6fb19899bc5ed9);
+        
+    
+            var icon_4d363ccebc254ca7ef3efc21cb21894b = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "plus-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_375b9c575d174539a53db34d7bb32bc0 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_a58d5e3737646b533c0787a7e8c83548 = $(`<div id="html_a58d5e3737646b533c0787a7e8c83548" style="width: 100.0%; height: 100.0%;">🏥 Комунальне некомерційне підприємство "Чорноморська лікарня" Чорноморської міської ради Одеського району Одеської області<br><b>Кластерний ЗОЗ</b><br>Одеська обл., Одеський р-н, місто Чорноморськ, вул.Шума Віталія, будинок 4</div>`)[0];
+                popup_375b9c575d174539a53db34d7bb32bc0.setContent(html_a58d5e3737646b533c0787a7e8c83548);
+            
+        
+
+        marker_1ee9591827fc685f7c35eccd2928f2fd.bindPopup(popup_375b9c575d174539a53db34d7bb32bc0)
+        ;
+
+        
+    
+    
+                marker_1ee9591827fc685f7c35eccd2928f2fd.setIcon(icon_4d363ccebc254ca7ef3efc21cb21894b);
+            
+    
+            var marker_3916073c20fa2e35cea097b802602ae6 = L.marker(
+                [45.6824666, 28.6210504],
+                {
+}
+            ).addTo(feature_group_214c1e903149ccf75b6fb19899bc5ed9);
+        
+    
+            var icon_1c7373abaf3b3bc4def45bec84e23788 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "green",
+  "iconColor": "white",
+  "icon": "plus-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_c3cdd0c73c82f85e93d5e05938b1e7ef = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_75344bf4716988a144f1b047f5fc133a = $(`<div id="html_75344bf4716988a144f1b047f5fc133a" style="width: 100.0%; height: 100.0%;">🏥 Комунальне некомерційне підприємство "Болградська центральна районна лікарня" Болградської міської ради Одеської області<br><b>Загальний ЗОЗ</b><br>Одеська обл., Болградський р-н, місто Болград, вулиця Ізмаїльська, будинок 71</div>`)[0];
+                popup_c3cdd0c73c82f85e93d5e05938b1e7ef.setContent(html_75344bf4716988a144f1b047f5fc133a);
+            
+        
+
+        marker_3916073c20fa2e35cea097b802602ae6.bindPopup(popup_c3cdd0c73c82f85e93d5e05938b1e7ef)
+        ;
+
+        
+    
+    
+                marker_3916073c20fa2e35cea097b802602ae6.setIcon(icon_1c7373abaf3b3bc4def45bec84e23788);
+            
+    
+            var marker_5d2b6d76dc5c260b2e78622da4a9abf7 = L.marker(
+                [46.4872155, 30.6943733],
+                {
+}
+            ).addTo(feature_group_214c1e903149ccf75b6fb19899bc5ed9);
+        
+    
+            var icon_14756705ee8e58450446d5462613ccff = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "plus-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_cf93fcd711a3c100323b182583eb41c8 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_4943392dde8ebbbdbbc33919893f78f5 = $(`<div id="html_4943392dde8ebbbdbbc33919893f78f5" style="width: 100.0%; height: 100.0%;">🏥 Комунальне некомерційне підприємство "Міська клінічна лікарня № 11" Одеської міської ради<br><b>Кластерний ЗОЗ</b><br>Одеська обл., місто Одеса, вулиця Академіка Воробйова , будинок 5-Г</div>`)[0];
+                popup_cf93fcd711a3c100323b182583eb41c8.setContent(html_4943392dde8ebbbdbbc33919893f78f5);
+            
+        
+
+        marker_5d2b6d76dc5c260b2e78622da4a9abf7.bindPopup(popup_cf93fcd711a3c100323b182583eb41c8)
+        ;
+
+        
+    
+    
+                marker_5d2b6d76dc5c260b2e78622da4a9abf7.setIcon(icon_14756705ee8e58450446d5462613ccff);
+            
+    
+            var marker_a6fc6b051c50c152f876b60edc231137 = L.marker(
+                [46.1525628, 30.5378272],
+                {
+}
+            ).addTo(feature_group_214c1e903149ccf75b6fb19899bc5ed9);
+        
+    
+            var icon_1e46095a53f42fc5e8c4e2a7f8396ca1 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "green",
+  "iconColor": "white",
+  "icon": "plus-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_65eaaf5e000090f946d5b31c24814af9 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_159a0b9536fbb7849fc3ecc118217572 = $(`<div id="html_159a0b9536fbb7849fc3ecc118217572" style="width: 100.0%; height: 100.0%;">🏥 Комунальне некомерційне підприємство Овідіопольської селищної ради "Овідіопольська лікарня" <br><b>Загальний ЗОЗ</b><br>Одеська обл., Овідіопольський р-н, селище міського типу Овідіополь, вулиця Т. Шевченка, будинок 422</div>`)[0];
+                popup_65eaaf5e000090f946d5b31c24814af9.setContent(html_159a0b9536fbb7849fc3ecc118217572);
+            
+        
+
+        marker_a6fc6b051c50c152f876b60edc231137.bindPopup(popup_65eaaf5e000090f946d5b31c24814af9)
+        ;
+
+        
+    
+    
+                marker_a6fc6b051c50c152f876b60edc231137.setIcon(icon_1e46095a53f42fc5e8c4e2a7f8396ca1);
+            
+    
+            feature_group_214c1e903149ccf75b6fb19899bc5ed9.addTo(map_e7c908bf2f4caa4d86eabfa8729ae975);
+        
+    
+            var layer_control_e25e4f305cef9fa12b618e1a103c2a92_layers = {
+                base_layers : {
+                    "openstreetmap" : tile_layer_665d6d17cb2a424f9bd654f895da48d7,
+                },
+                overlays :  {
+                    "\u041e\u0414\u0421" : feature_group_sub_group_04967da62bcc5643be2131b3fd578d33,
+                    "\u041f\u0443\u043d\u043a\u0442 \u0431\u0430\u0437\u0443\u0432\u0430\u043d\u043d\u044f" : feature_group_sub_group_328f4d348c39e8eee8d39ffaa4bc8dc5,
+                    "\u041f\u0456\u0434\u0441\u0442\u0430\u043d\u0446\u0456\u044f" : feature_group_sub_group_37e25961d7a9614b72daecb98fedea01,
+                    "\u0421\u0442\u0430\u043d\u0446\u0456\u044f" : feature_group_sub_group_14326e91e0c24134761e9f89ff5f5f22,
+                    "\u0426\u0415\u041c\u0414" : feature_group_sub_group_b0cc26016dac31f198bde38a554140f7,
+                    "Hospitals" : feature_group_214c1e903149ccf75b6fb19899bc5ed9,
+                },
+            };
+            let layer_control_e25e4f305cef9fa12b618e1a103c2a92 = L.control.layers(
+                layer_control_e25e4f305cef9fa12b618e1a103c2a92_layers.base_layers,
+                layer_control_e25e4f305cef9fa12b618e1a103c2a92_layers.overlays,
+                {
+  "position": "topright",
+  "collapsed": false,
+  "autoZIndex": true,
+}
+            ).addTo(map_e7c908bf2f4caa4d86eabfa8729ae975);
+
+        
+</script>
+</html>
