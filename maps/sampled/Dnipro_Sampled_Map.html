@@ -1,0 +1,1204 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    
+        <script>
+            L_NO_TOUCH = false;
+            L_DISABLE_3D = false;
+        </script>
+    
+    <style>html, body {width: 100%;height: 100%;margin: 0;padding: 0;}</style>
+    <style>#map {position:absolute;top:0;bottom:0;right:0;left:0;}</style>
+    <script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.0/css/all.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/python-visualization/folium/folium/templates/leaflet.awesome.rotate.min.css"/>
+    
+            <meta name="viewport" content="width=device-width,
+                initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+            <style>
+                #map_1497b90e4fd70cc03cdd46b9b574acf8 {
+                    position: relative;
+                    width: 100.0%;
+                    height: 100.0%;
+                    left: 0.0%;
+                    top: 0.0%;
+                }
+                .leaflet-container { font-size: 1rem; }
+            </style>
+        
+    <script src="https://unpkg.com/leaflet.featuregroup.subgroup@1.0.2/dist/leaflet.featuregroup.subgroup.js"></script>
+</head>
+<body>
+    
+    
+    <div style="position: fixed;
+                bottom: 50px; left: 50px; width: 220px;
+                background-color: white; z-index:9999; font-size:14px;
+                border:2px solid grey; padding: 10px;">
+    <h4>Legend</h4>
+    <b>EMS Centers</b><br>
+    <i style="background:darkred; color:white; padding: 5px;">&nbsp;&nbsp;&nbsp;</i> ЦЕМД<br>
+    <i style="background:red; color:white; padding: 5px;">&nbsp;&nbsp;&nbsp;</i> Станція<br>
+    <i style="background:orange; color:black; padding: 5px;">&nbsp;&nbsp;&nbsp;</i> Підстанція<br>
+    <i style="background:yellow; color:black; padding: 5px;">&nbsp;&nbsp;&nbsp;</i> Пункт базування<br>
+    <i style="background:green; color:white; padding: 5px;">&nbsp;&nbsp;&nbsp;</i> ОДС<br><br>
+    <b>Hospitals</b><br>
+    <i style="background:purple; color:white; padding: 5px;">&nbsp;&nbsp;&nbsp;</i> Надкластерний ЗОЗ<br>
+    <i style="background:blue; color:white; padding: 5px;">&nbsp;&nbsp;&nbsp;</i> Кластерний ЗОЗ<br>
+    <i style="background:green; color:white; padding: 5px;">&nbsp;&nbsp;&nbsp;</i> Загальний ЗОЗ<br>
+    </div>
+    
+    
+            <div class="folium-map" id="map_1497b90e4fd70cc03cdd46b9b574acf8" ></div>
+        
+</body>
+<script>
+    
+    
+            var map_1497b90e4fd70cc03cdd46b9b574acf8 = L.map(
+                "map_1497b90e4fd70cc03cdd46b9b574acf8",
+                {
+                    center: [48.39, 34.71],
+                    crs: L.CRS.EPSG3857,
+                    ...{
+  "zoom": 7,
+  "zoomControl": true,
+  "preferCanvas": false,
+}
+
+                }
+            );
+
+            
+
+        
+    
+            var tile_layer_ffe14ddb46883f7f60ce1ea164732c09 = L.tileLayer(
+                "https://tile.openstreetmap.org/{z}/{x}/{y}.png",
+                {
+  "minZoom": 0,
+  "maxZoom": 19,
+  "maxNativeZoom": 19,
+  "noWrap": false,
+  "attribution": "\u0026copy; \u003ca href=\"https://www.openstreetmap.org/copyright\"\u003eOpenStreetMap\u003c/a\u003e contributors",
+  "subdomains": "abc",
+  "detectRetina": false,
+  "tms": false,
+  "opacity": 1,
+}
+
+            );
+        
+    
+            tile_layer_ffe14ddb46883f7f60ce1ea164732c09.addTo(map_1497b90e4fd70cc03cdd46b9b574acf8);
+        
+    
+            var feature_group_3f00c6508bc5e2e6b058897a00cc9c60 = L.featureGroup(
+                {
+}
+            );
+        
+    
+            feature_group_3f00c6508bc5e2e6b058897a00cc9c60.addTo(map_1497b90e4fd70cc03cdd46b9b574acf8);
+        
+    
+            var feature_group_sub_group_4dbc3348ab40074a0a1ad566a6422585 = L.featureGroup.subGroup(
+                feature_group_3f00c6508bc5e2e6b058897a00cc9c60
+            );
+        
+    
+            var circle_marker_4248aca497888bda465806d9018e04ae = L.circleMarker(
+                [47.888214, 33.3906377],
+                {"bubblingMouseEvents": true, "color": "green", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "green", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 3}
+            ).addTo(feature_group_sub_group_4dbc3348ab40074a0a1ad566a6422585);
+        
+    
+        var popup_e71a2839dc6254bda782b0afd51ff1a7 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_c4e97ca744f633802811aa6b07372183 = $(`<div id="html_c4e97ca744f633802811aa6b07372183" style="width: 100.0%; height: 100.0%;">EMS: ОДС<br>м Кривий Ріг вул. Нікопольське шосе, 8</div>`)[0];
+                popup_e71a2839dc6254bda782b0afd51ff1a7.setContent(html_c4e97ca744f633802811aa6b07372183);
+            
+        
+
+        circle_marker_4248aca497888bda465806d9018e04ae.bindPopup(popup_e71a2839dc6254bda782b0afd51ff1a7)
+        ;
+
+        
+    
+    
+            feature_group_sub_group_4dbc3348ab40074a0a1ad566a6422585.addTo(map_1497b90e4fd70cc03cdd46b9b574acf8);
+        
+    
+            var feature_group_sub_group_0bbca4edb8953ceca4b0585e02895475 = L.featureGroup.subGroup(
+                feature_group_3f00c6508bc5e2e6b058897a00cc9c60
+            );
+        
+    
+            var circle_marker_4854f2c9be7cbcd749b81feca83cd8ec = L.circleMarker(
+                [48.116045, 36.3725301],
+                {"bubblingMouseEvents": true, "color": "yellow", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "yellow", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 3}
+            ).addTo(feature_group_sub_group_0bbca4edb8953ceca4b0585e02895475);
+        
+    
+        var popup_e328df763b7b64a34ef229be7d8081f9 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_7ae4a765bc12c5914b7a44ace8119cb8 = $(`<div id="html_7ae4a765bc12c5914b7a44ace8119cb8" style="width: 100.0%; height: 100.0%;">EMS: Пункт базування<br>смт. Просяна , вул. Весняна, 1</div>`)[0];
+                popup_e328df763b7b64a34ef229be7d8081f9.setContent(html_7ae4a765bc12c5914b7a44ace8119cb8);
+            
+        
+
+        circle_marker_4854f2c9be7cbcd749b81feca83cd8ec.bindPopup(popup_e328df763b7b64a34ef229be7d8081f9)
+        ;
+
+        
+    
+    
+            var circle_marker_766c24b290c640ba672578f582a382ce = L.circleMarker(
+                [49.0170319, 35.3581724],
+                {"bubblingMouseEvents": true, "color": "yellow", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "yellow", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 3}
+            ).addTo(feature_group_sub_group_0bbca4edb8953ceca4b0585e02895475);
+        
+    
+        var popup_f0e48bf3e49416903c419584736b8986 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_8bf3cb041929d0857a658769cd7be783 = $(`<div id="html_8bf3cb041929d0857a658769cd7be783" style="width: 100.0%; height: 100.0%;">EMS: Пункт базування<br>м. Перещепине вул. Шевченко, 28</div>`)[0];
+                popup_f0e48bf3e49416903c419584736b8986.setContent(html_8bf3cb041929d0857a658769cd7be783);
+            
+        
+
+        circle_marker_766c24b290c640ba672578f582a382ce.bindPopup(popup_f0e48bf3e49416903c419584736b8986)
+        ;
+
+        
+    
+    
+            var circle_marker_0b7f6f0fd8aed258ec8f114b21fd228c = L.circleMarker(
+                [47.8387626, 35.1222909],
+                {"bubblingMouseEvents": true, "color": "yellow", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "yellow", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 3}
+            ).addTo(feature_group_sub_group_0bbca4edb8953ceca4b0585e02895475);
+        
+    
+        var popup_4eedde8bdf46af408ea753bddb1e87e7 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_69998c45f035130c6192c0b267c3d6f8 = $(`<div id="html_69998c45f035130c6192c0b267c3d6f8" style="width: 100.0%; height: 100.0%;">EMS: Пункт базування<br>с. Вищетарасівка , вул. Перемоги, 60</div>`)[0];
+                popup_4eedde8bdf46af408ea753bddb1e87e7.setContent(html_69998c45f035130c6192c0b267c3d6f8);
+            
+        
+
+        circle_marker_0b7f6f0fd8aed258ec8f114b21fd228c.bindPopup(popup_4eedde8bdf46af408ea753bddb1e87e7)
+        ;
+
+        
+    
+    
+            var circle_marker_187eccb2aeeeb28737c30c1e5f667e66 = L.circleMarker(
+                [48.4673188, 35.0551837],
+                {"bubblingMouseEvents": true, "color": "yellow", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "yellow", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 3}
+            ).addTo(feature_group_sub_group_0bbca4edb8953ceca4b0585e02895475);
+        
+    
+        var popup_d526ae5b8884eb54c08980f101588f52 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_fd5ddb0772f90ee630f63415ee7b66d9 = $(`<div id="html_fd5ddb0772f90ee630f63415ee7b66d9" style="width: 100.0%; height: 100.0%;">EMS: Пункт базування<br>м.Дніпро вул. Ламана 4</div>`)[0];
+                popup_d526ae5b8884eb54c08980f101588f52.setContent(html_fd5ddb0772f90ee630f63415ee7b66d9);
+            
+        
+
+        circle_marker_187eccb2aeeeb28737c30c1e5f667e66.bindPopup(popup_d526ae5b8884eb54c08980f101588f52)
+        ;
+
+        
+    
+    
+            var circle_marker_f772d57a9c0df8646763c366e7b8fb0d = L.circleMarker(
+                [50.4439077, 30.3340719],
+                {"bubblingMouseEvents": true, "color": "yellow", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "yellow", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 3}
+            ).addTo(feature_group_sub_group_0bbca4edb8953ceca4b0585e02895475);
+        
+    
+        var popup_f025af81fa4433712833db9228b95d6c = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_3ca96e8e22384c0ae6afb81d323e7fbc = $(`<div id="html_3ca96e8e22384c0ae6afb81d323e7fbc" style="width: 100.0%; height: 100.0%;">EMS: Пункт базування<br>с. Софіївка вул. Комарова, 34 Б</div>`)[0];
+                popup_f025af81fa4433712833db9228b95d6c.setContent(html_3ca96e8e22384c0ae6afb81d323e7fbc);
+            
+        
+
+        circle_marker_f772d57a9c0df8646763c366e7b8fb0d.bindPopup(popup_f025af81fa4433712833db9228b95d6c)
+        ;
+
+        
+    
+    
+            var circle_marker_f44fe983a8b00330132c4bf44729eda5 = L.circleMarker(
+                [50.4732357, 30.191952],
+                {"bubblingMouseEvents": true, "color": "yellow", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "yellow", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 3}
+            ).addTo(feature_group_sub_group_0bbca4edb8953ceca4b0585e02895475);
+        
+    
+        var popup_28504314ce1cc19f8181c89420d8bc47 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_cc758cdb6c89bcabe305d52b60ce2698 = $(`<div id="html_cc758cdb6c89bcabe305d52b60ce2698" style="width: 100.0%; height: 100.0%;">EMS: Пункт базування<br>с. Дмитрівка , вул. Козацька, 51</div>`)[0];
+                popup_28504314ce1cc19f8181c89420d8bc47.setContent(html_cc758cdb6c89bcabe305d52b60ce2698);
+            
+        
+
+        circle_marker_f44fe983a8b00330132c4bf44729eda5.bindPopup(popup_28504314ce1cc19f8181c89420d8bc47)
+        ;
+
+        
+    
+    
+            var circle_marker_97590173a93c520679fe1f5b0762739f = L.circleMarker(
+                [48.3389611, 34.9411012],
+                {"bubblingMouseEvents": true, "color": "yellow", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "yellow", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 3}
+            ).addTo(feature_group_sub_group_0bbca4edb8953ceca4b0585e02895475);
+        
+    
+        var popup_daf1607a4d7c32854cfd78badadd1c39 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_a8327f2e130435c2e82c5dd423aebbfd = $(`<div id="html_a8327f2e130435c2e82c5dd423aebbfd" style="width: 100.0%; height: 100.0%;">EMS: Пункт базування<br>с .Сурсько-Литовське вул. Центральна,7</div>`)[0];
+                popup_daf1607a4d7c32854cfd78badadd1c39.setContent(html_a8327f2e130435c2e82c5dd423aebbfd);
+            
+        
+
+        circle_marker_97590173a93c520679fe1f5b0762739f.bindPopup(popup_daf1607a4d7c32854cfd78badadd1c39)
+        ;
+
+        
+    
+    
+            var circle_marker_07dcd043a67940afd4f7936d68505e27 = L.circleMarker(
+                [48.4849805, 35.1246722],
+                {"bubblingMouseEvents": true, "color": "yellow", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "yellow", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 3}
+            ).addTo(feature_group_sub_group_0bbca4edb8953ceca4b0585e02895475);
+        
+    
+        var popup_d0931ccb0d2dd4a52b02f63bdc3a3e02 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_c01624d3baf8244a68413a1ab20bd07c = $(`<div id="html_c01624d3baf8244a68413a1ab20bd07c" style="width: 100.0%; height: 100.0%;">EMS: Пункт базування<br>м.Дніпро вул. Іларіонівська, 9</div>`)[0];
+                popup_d0931ccb0d2dd4a52b02f63bdc3a3e02.setContent(html_c01624d3baf8244a68413a1ab20bd07c);
+            
+        
+
+        circle_marker_07dcd043a67940afd4f7936d68505e27.bindPopup(popup_d0931ccb0d2dd4a52b02f63bdc3a3e02)
+        ;
+
+        
+    
+    
+            var circle_marker_fa19242ff805e92402b3b0070a5af28f = L.circleMarker(
+                [48.20400979999999, 34.8732388],
+                {"bubblingMouseEvents": true, "color": "yellow", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "yellow", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 3}
+            ).addTo(feature_group_sub_group_0bbca4edb8953ceca4b0585e02895475);
+        
+    
+        var popup_152b16939f8e79799ee2c5301f40230c = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_c8a71de9f04d3ee16bf43bfe384cee1c = $(`<div id="html_c8a71de9f04d3ee16bf43bfe384cee1c" style="width: 100.0%; height: 100.0%;">EMS: Пункт базування<br>смт.Солоне , вул Усенко 13 а</div>`)[0];
+                popup_152b16939f8e79799ee2c5301f40230c.setContent(html_c8a71de9f04d3ee16bf43bfe384cee1c);
+            
+        
+
+        circle_marker_fa19242ff805e92402b3b0070a5af28f.bindPopup(popup_152b16939f8e79799ee2c5301f40230c)
+        ;
+
+        
+    
+    
+            var circle_marker_7debc37a48206012aa3aa782a773c60b = L.circleMarker(
+                [48.1270533, 36.2329455],
+                {"bubblingMouseEvents": true, "color": "yellow", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "yellow", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 3}
+            ).addTo(feature_group_sub_group_0bbca4edb8953ceca4b0585e02895475);
+        
+    
+        var popup_b0ddca76462827edb6477eefc76f706a = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_04da5ee1b87eaef32356078ce48294a4 = $(`<div id="html_04da5ee1b87eaef32356078ce48294a4" style="width: 100.0%; height: 100.0%;">EMS: Пункт базування<br>смт. Чаплине , вул. Лікарняна, 6</div>`)[0];
+                popup_b0ddca76462827edb6477eefc76f706a.setContent(html_04da5ee1b87eaef32356078ce48294a4);
+            
+        
+
+        circle_marker_7debc37a48206012aa3aa782a773c60b.bindPopup(popup_b0ddca76462827edb6477eefc76f706a)
+        ;
+
+        
+    
+    
+            var circle_marker_57fbf6f9f4bfe4d911492435674784c3 = L.circleMarker(
+                [47.5651424, 33.6426949],
+                {"bubblingMouseEvents": true, "color": "yellow", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "yellow", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 3}
+            ).addTo(feature_group_sub_group_0bbca4edb8953ceca4b0585e02895475);
+        
+    
+        var popup_1d130663a1325496be2a43ae32af977d = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_78d3bd7755a00c1c716acbb8c0dfb9fc = $(`<div id="html_78d3bd7755a00c1c716acbb8c0dfb9fc" style="width: 100.0%; height: 100.0%;">EMS: Пункт базування<br>м. Зеленодольськ вул. Спортивна, 2</div>`)[0];
+                popup_1d130663a1325496be2a43ae32af977d.setContent(html_78d3bd7755a00c1c716acbb8c0dfb9fc);
+            
+        
+
+        circle_marker_57fbf6f9f4bfe4d911492435674784c3.bindPopup(popup_1d130663a1325496be2a43ae32af977d)
+        ;
+
+        
+    
+    
+            var circle_marker_610c7961fe2b61cafbab3a5f72c1cefb = L.circleMarker(
+                [47.6934805, 34.3232477],
+                {"bubblingMouseEvents": true, "color": "yellow", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "yellow", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 3}
+            ).addTo(feature_group_sub_group_0bbca4edb8953ceca4b0585e02895475);
+        
+    
+        var popup_71fc4240154c41bdee4cbba134ec3369 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_8a8fdf9b1c6f9e00703a00bbc3f1d74c = $(`<div id="html_8a8fdf9b1c6f9e00703a00bbc3f1d74c" style="width: 100.0%; height: 100.0%;">EMS: Пункт базування<br>с. Чкалове вул. Центральна, 68</div>`)[0];
+                popup_71fc4240154c41bdee4cbba134ec3369.setContent(html_8a8fdf9b1c6f9e00703a00bbc3f1d74c);
+            
+        
+
+        circle_marker_610c7961fe2b61cafbab3a5f72c1cefb.bindPopup(popup_71fc4240154c41bdee4cbba134ec3369)
+        ;
+
+        
+    
+    
+            var circle_marker_13c0f0bfb4591b59d15891e3496a3f10 = L.circleMarker(
+                [48.4561441, 35.0700306],
+                {"bubblingMouseEvents": true, "color": "yellow", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "yellow", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 3}
+            ).addTo(feature_group_sub_group_0bbca4edb8953ceca4b0585e02895475);
+        
+    
+        var popup_2aea9802b908e79b8f7798e7f1f6b181 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_398214722593ad096f16c3c2415745c2 = $(`<div id="html_398214722593ad096f16c3c2415745c2" style="width: 100.0%; height: 100.0%;">EMS: Пункт базування<br>м. Дніпро пл. Соборна 14,</div>`)[0];
+                popup_2aea9802b908e79b8f7798e7f1f6b181.setContent(html_398214722593ad096f16c3c2415745c2);
+            
+        
+
+        circle_marker_13c0f0bfb4591b59d15891e3496a3f10.bindPopup(popup_2aea9802b908e79b8f7798e7f1f6b181)
+        ;
+
+        
+    
+    
+            feature_group_sub_group_0bbca4edb8953ceca4b0585e02895475.addTo(map_1497b90e4fd70cc03cdd46b9b574acf8);
+        
+    
+            var feature_group_sub_group_0c346f28725ad9de590f545d49fb4db1 = L.featureGroup.subGroup(
+                feature_group_3f00c6508bc5e2e6b058897a00cc9c60
+            );
+        
+    
+            var circle_marker_2424ccecefe0c449368d66ff3e5d2d0e = L.circleMarker(
+                [50.1978443, 30.2978261],
+                {"bubblingMouseEvents": true, "color": "orange", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "orange", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 3}
+            ).addTo(feature_group_sub_group_0c346f28725ad9de590f545d49fb4db1);
+        
+    
+        var popup_5f90967d73b57c79745d018052e89daf = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_204f58dbb1f3cb4ebf25a1f63eb5c930 = $(`<div id="html_204f58dbb1f3cb4ebf25a1f63eb5c930" style="width: 100.0%; height: 100.0%;">EMS: Підстанція<br>смт. Васильківка вул. Михайлівська, 76 д</div>`)[0];
+                popup_5f90967d73b57c79745d018052e89daf.setContent(html_204f58dbb1f3cb4ebf25a1f63eb5c930);
+            
+        
+
+        circle_marker_2424ccecefe0c449368d66ff3e5d2d0e.bindPopup(popup_5f90967d73b57c79745d018052e89daf)
+        ;
+
+        
+    
+    
+            var circle_marker_25c2cc26115a77926245f7055f6da547 = L.circleMarker(
+                [48.6546838, 34.3393312],
+                {"bubblingMouseEvents": true, "color": "orange", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "orange", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 3}
+            ).addTo(feature_group_sub_group_0c346f28725ad9de590f545d49fb4db1);
+        
+    
+        var popup_0af553a7b2eca2edd3c208adff15386a = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_60d3de0a5d5c5a6032c86b88787e3c94 = $(`<div id="html_60d3de0a5d5c5a6032c86b88787e3c94" style="width: 100.0%; height: 100.0%;">EMS: Підстанція<br>м. Верхньодніпровськ, вул. Гагаріна,16</div>`)[0];
+                popup_0af553a7b2eca2edd3c208adff15386a.setContent(html_60d3de0a5d5c5a6032c86b88787e3c94);
+            
+        
+
+        circle_marker_25c2cc26115a77926245f7055f6da547.bindPopup(popup_0af553a7b2eca2edd3c208adff15386a)
+        ;
+
+        
+    
+    
+            var circle_marker_65376fa3ceb0b4f76c3f79104c4e27f9 = L.circleMarker(
+                [48.7432173, 36.0192025],
+                {"bubblingMouseEvents": true, "color": "orange", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "orange", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 3}
+            ).addTo(feature_group_sub_group_0c346f28725ad9de590f545d49fb4db1);
+        
+    
+        var popup_fde6ee4d3f0424c3b59afa9d9120741f = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_5b72c679791d8c0d5d659329b9bd86ad = $(`<div id="html_5b72c679791d8c0d5d659329b9bd86ad" style="width: 100.0%; height: 100.0%;">EMS: Підстанція<br>смт. Юр’ївка вул. Вишнева, 61</div>`)[0];
+                popup_fde6ee4d3f0424c3b59afa9d9120741f.setContent(html_5b72c679791d8c0d5d659329b9bd86ad);
+            
+        
+
+        circle_marker_65376fa3ceb0b4f76c3f79104c4e27f9.bindPopup(popup_fde6ee4d3f0424c3b59afa9d9120741f)
+        ;
+
+        
+    
+    
+            var circle_marker_d359c3f7d81b2597253d70ead9c2c3fc = L.circleMarker(
+                [48.3491042, 36.407441],
+                {"bubblingMouseEvents": true, "color": "orange", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "orange", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 3}
+            ).addTo(feature_group_sub_group_0c346f28725ad9de590f545d49fb4db1);
+        
+    
+        var popup_f9c63dd38d25676a59bb9a43941e2a9f = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_d15b842b750eb39148846c11cf3218ed = $(`<div id="html_d15b842b750eb39148846c11cf3218ed" style="width: 100.0%; height: 100.0%;">EMS: Підстанція<br>м. Першотравенськ вул. Шахтарської слави, 1</div>`)[0];
+                popup_f9c63dd38d25676a59bb9a43941e2a9f.setContent(html_d15b842b750eb39148846c11cf3218ed);
+            
+        
+
+        circle_marker_d359c3f7d81b2597253d70ead9c2c3fc.bindPopup(popup_f9c63dd38d25676a59bb9a43941e2a9f)
+        ;
+
+        
+    
+    
+            var circle_marker_9f6bff02938ca901945905c022e897ff = L.circleMarker(
+                [48.46558899999999, 35.015664],
+                {"bubblingMouseEvents": true, "color": "orange", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "orange", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 3}
+            ).addTo(feature_group_sub_group_0c346f28725ad9de590f545d49fb4db1);
+        
+    
+        var popup_95d890f7e196747051bb2e4cc85cb20f = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_a7a9fd5114982deb330e7e977c5e573a = $(`<div id="html_a7a9fd5114982deb330e7e977c5e573a" style="width: 100.0%; height: 100.0%;">EMS: Підстанція<br>м. Дніпро вул. В. Антоновича, 65</div>`)[0];
+                popup_95d890f7e196747051bb2e4cc85cb20f.setContent(html_a7a9fd5114982deb330e7e977c5e573a);
+            
+        
+
+        circle_marker_9f6bff02938ca901945905c022e897ff.bindPopup(popup_95d890f7e196747051bb2e4cc85cb20f)
+        ;
+
+        
+    
+    
+            var circle_marker_f1850509342cf6bcfa954f7d98a4d012 = L.circleMarker(
+                [48.5996467, 34.5754601],
+                {"bubblingMouseEvents": true, "color": "orange", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "orange", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 3}
+            ).addTo(feature_group_sub_group_0c346f28725ad9de590f545d49fb4db1);
+        
+    
+        var popup_f9067069ea6e4f2f026a3b899f9419fc = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_e3cbe7f2e10609a4e51bd2cdc9b32a23 = $(`<div id="html_e3cbe7f2e10609a4e51bd2cdc9b32a23" style="width: 100.0%; height: 100.0%;">EMS: Підстанція<br>м. Кам’янське ,бульвар Будівників, 26 а</div>`)[0];
+                popup_f9067069ea6e4f2f026a3b899f9419fc.setContent(html_e3cbe7f2e10609a4e51bd2cdc9b32a23);
+            
+        
+
+        circle_marker_f1850509342cf6bcfa954f7d98a4d012.bindPopup(popup_f9067069ea6e4f2f026a3b899f9419fc)
+        ;
+
+        
+    
+    
+            var circle_marker_d54e5fe08757df90cb6f3996296ada83 = L.circleMarker(
+                [47.64347859999999, 34.6640053],
+                {"bubblingMouseEvents": true, "color": "orange", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "orange", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 3}
+            ).addTo(feature_group_sub_group_0c346f28725ad9de590f545d49fb4db1);
+        
+    
+        var popup_5c43f4d6013eeea580b90e72bcdc1a53 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_a7effac7e4e04b039dd20b09b8d90754 = $(`<div id="html_a7effac7e4e04b039dd20b09b8d90754" style="width: 100.0%; height: 100.0%;">EMS: Підстанція<br>м Марганець вул. Паркова,15</div>`)[0];
+                popup_5c43f4d6013eeea580b90e72bcdc1a53.setContent(html_a7effac7e4e04b039dd20b09b8d90754);
+            
+        
+
+        circle_marker_d54e5fe08757df90cb6f3996296ada83.bindPopup(popup_5c43f4d6013eeea580b90e72bcdc1a53)
+        ;
+
+        
+    
+    
+            var circle_marker_4c727e87e884f1744703fd98af163463 = L.circleMarker(
+                [48.71582129999999, 34.6194504],
+                {"bubblingMouseEvents": true, "color": "orange", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "orange", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 3}
+            ).addTo(feature_group_sub_group_0c346f28725ad9de590f545d49fb4db1);
+        
+    
+        var popup_e1802ec00278ccc0ea7bc8206812476b = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_46f961e3add28e7845a1e349eb65e45e = $(`<div id="html_46f961e3add28e7845a1e349eb65e45e" style="width: 100.0%; height: 100.0%;">EMS: Підстанція<br>смт. Петриківка пр. Петра Калнишевського, 56</div>`)[0];
+                popup_e1802ec00278ccc0ea7bc8206812476b.setContent(html_46f961e3add28e7845a1e349eb65e45e);
+            
+        
+
+        circle_marker_4c727e87e884f1744703fd98af163463.bindPopup(popup_e1802ec00278ccc0ea7bc8206812476b)
+        ;
+
+        
+    
+    
+            var circle_marker_346429aadd2c06b47f27e415729b4b9e = L.circleMarker(
+                [47.6825097, 33.1651965],
+                {"bubblingMouseEvents": true, "color": "orange", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "orange", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 3}
+            ).addTo(feature_group_sub_group_0c346f28725ad9de590f545d49fb4db1);
+        
+    
+        var popup_4bc2704203003fb987e251b536eda981 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_924eee6f3671d377b326336b0600bf13 = $(`<div id="html_924eee6f3671d377b326336b0600bf13" style="width: 100.0%; height: 100.0%;">EMS: Підстанція<br>м Кривий Ріг мкр. Сонячний, 25 А</div>`)[0];
+                popup_4bc2704203003fb987e251b536eda981.setContent(html_924eee6f3671d377b326336b0600bf13);
+            
+        
+
+        circle_marker_346429aadd2c06b47f27e415729b4b9e.bindPopup(popup_4bc2704203003fb987e251b536eda981)
+        ;
+
+        
+    
+    
+            feature_group_sub_group_0c346f28725ad9de590f545d49fb4db1.addTo(map_1497b90e4fd70cc03cdd46b9b574acf8);
+        
+    
+            var feature_group_sub_group_6d556b73fe010f000a11a7c3c7948a44 = L.featureGroup.subGroup(
+                feature_group_3f00c6508bc5e2e6b058897a00cc9c60
+            );
+        
+    
+            var circle_marker_351cf05a38906f9c8bebb6af31551f06 = L.circleMarker(
+                [48.46558899999999, 35.015664],
+                {"bubblingMouseEvents": true, "color": "red", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "red", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 3}
+            ).addTo(feature_group_sub_group_6d556b73fe010f000a11a7c3c7948a44);
+        
+    
+        var popup_ca84abccec11ea0e0b7aef1e3566e621 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_abf49b4d9c108ff5683c9b0eaea644a1 = $(`<div id="html_abf49b4d9c108ff5683c9b0eaea644a1" style="width: 100.0%; height: 100.0%;">EMS: Станція<br>м. Дніпро вул. В. Антоновича, 65</div>`)[0];
+                popup_ca84abccec11ea0e0b7aef1e3566e621.setContent(html_abf49b4d9c108ff5683c9b0eaea644a1);
+            
+        
+
+        circle_marker_351cf05a38906f9c8bebb6af31551f06.bindPopup(popup_ca84abccec11ea0e0b7aef1e3566e621)
+        ;
+
+        
+    
+    
+            var circle_marker_1806b01f505b7171b47c1266f84a4ab4 = L.circleMarker(
+                [48.522954, 34.6054295],
+                {"bubblingMouseEvents": true, "color": "red", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "red", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 3}
+            ).addTo(feature_group_sub_group_6d556b73fe010f000a11a7c3c7948a44);
+        
+    
+        var popup_c15b71e8d3c2ef1968fb16b17c6bfb8d = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_6cbc40acda10bfb8eb2d4e9206641a6c = $(`<div id="html_6cbc40acda10bfb8eb2d4e9206641a6c" style="width: 100.0%; height: 100.0%;">EMS: Станція<br>м. Кам’янське пр. Гімназичний, 22 а</div>`)[0];
+                popup_c15b71e8d3c2ef1968fb16b17c6bfb8d.setContent(html_6cbc40acda10bfb8eb2d4e9206641a6c);
+            
+        
+
+        circle_marker_1806b01f505b7171b47c1266f84a4ab4.bindPopup(popup_c15b71e8d3c2ef1968fb16b17c6bfb8d)
+        ;
+
+        
+    
+    
+            feature_group_sub_group_6d556b73fe010f000a11a7c3c7948a44.addTo(map_1497b90e4fd70cc03cdd46b9b574acf8);
+        
+    
+            var feature_group_sub_group_0c1ad52020f59b824fbca7c09c82f438 = L.featureGroup.subGroup(
+                feature_group_3f00c6508bc5e2e6b058897a00cc9c60
+            );
+        
+    
+            var circle_marker_7056192af5337ddccccba653abfb86f0 = L.circleMarker(
+                [48.4561441, 35.0700306],
+                {"bubblingMouseEvents": true, "color": "darkred", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "darkred", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 3}
+            ).addTo(feature_group_sub_group_0c1ad52020f59b824fbca7c09c82f438);
+        
+    
+        var popup_b7d7c7ecc879b568415d19b825126bfb = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_9a5297f94bee7c1eda38d095ffceabea = $(`<div id="html_9a5297f94bee7c1eda38d095ffceabea" style="width: 100.0%; height: 100.0%;">EMS: ЦЕМД<br>м. Дніпро пл. Соборна 14,</div>`)[0];
+                popup_b7d7c7ecc879b568415d19b825126bfb.setContent(html_9a5297f94bee7c1eda38d095ffceabea);
+            
+        
+
+        circle_marker_7056192af5337ddccccba653abfb86f0.bindPopup(popup_b7d7c7ecc879b568415d19b825126bfb)
+        ;
+
+        
+    
+    
+            feature_group_sub_group_0c1ad52020f59b824fbca7c09c82f438.addTo(map_1497b90e4fd70cc03cdd46b9b574acf8);
+        
+    
+            var feature_group_48e72e3f25b77d53cc845be034bab113 = L.featureGroup(
+                {
+}
+            );
+        
+    
+            var marker_1a722ec433ffdcff790370e4b824e795 = L.marker(
+                [48.4651224, 35.0188594],
+                {
+}
+            ).addTo(feature_group_48e72e3f25b77d53cc845be034bab113);
+        
+    
+            var icon_5a56f8a86be60d39853652e7ed7f0fd0 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "plus-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_b5f7e60cece5f44c7344ef6691710a23 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_ec78ef03132c9128781e256d5c1b3924 = $(`<div id="html_ec78ef03132c9128781e256d5c1b3924" style="width: 100.0%; height: 100.0%;">🏥 КНП «Клінічна лікарня ШМД» ДМР<br><b>Кластерний ЗОЗ</b><br>Дніпропетровська обл., місто Дніпро, вулиця Володимира Антоновича, будинок 65</div>`)[0];
+                popup_b5f7e60cece5f44c7344ef6691710a23.setContent(html_ec78ef03132c9128781e256d5c1b3924);
+            
+        
+
+        marker_1a722ec433ffdcff790370e4b824e795.bindPopup(popup_b5f7e60cece5f44c7344ef6691710a23)
+        ;
+
+        
+    
+    
+                marker_1a722ec433ffdcff790370e4b824e795.setIcon(icon_5a56f8a86be60d39853652e7ed7f0fd0);
+            
+    
+            var marker_8cb926162ddde1cf6a49b1b29901f548 = L.marker(
+                [47.9270807, 33.4503358],
+                {
+}
+            ).addTo(feature_group_48e72e3f25b77d53cc845be034bab113);
+        
+    
+            var icon_f4aafe91094fdd439b9193dd83616cc7 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "purple",
+  "iconColor": "white",
+  "icon": "plus-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_69416d3feff6bbe2dbd0d6af299584fd = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_8a899ebd9ba7eeb886b191cd0cb6a523 = $(`<div id="html_8a899ebd9ba7eeb886b191cd0cb6a523" style="width: 100.0%; height: 100.0%;">🏥 КП "Криворізький онкологічний диспансер" Дніпропетровської обласної ради<br><b>Надкластерний ЗОЗ</b><br>Дніпропетровська область, місто Кривий Ріг, вулиця Дніпровське Шосе, будинок 41</div>`)[0];
+                popup_69416d3feff6bbe2dbd0d6af299584fd.setContent(html_8a899ebd9ba7eeb886b191cd0cb6a523);
+            
+        
+
+        marker_8cb926162ddde1cf6a49b1b29901f548.bindPopup(popup_69416d3feff6bbe2dbd0d6af299584fd)
+        ;
+
+        
+    
+    
+                marker_8cb926162ddde1cf6a49b1b29901f548.setIcon(icon_f4aafe91094fdd439b9193dd83616cc7);
+            
+    
+            var marker_9a7c9f5a46bc6e72a06a1e1b29f32075 = L.marker(
+                [48.6319463, 35.2250707],
+                {
+}
+            ).addTo(feature_group_48e72e3f25b77d53cc845be034bab113);
+        
+    
+            var icon_8f719dec21e999534b83c6700a23638b = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "green",
+  "iconColor": "white",
+  "icon": "plus-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_a5a2940754055548f5c004efeb16cd5a = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_bcb5c43d14808eddab2eaf6f6b3fb39e = $(`<div id="html_bcb5c43d14808eddab2eaf6f6b3fb39e" style="width: 100.0%; height: 100.0%;">🏥 КНП "Новомосковська центральна міська лікарня" НМР<br><b>Загальний ЗОЗ</b><br>Дніпропетровська обл., місто Новомосковськ, вулиця Сучкова, будинок 40</div>`)[0];
+                popup_a5a2940754055548f5c004efeb16cd5a.setContent(html_bcb5c43d14808eddab2eaf6f6b3fb39e);
+            
+        
+
+        marker_9a7c9f5a46bc6e72a06a1e1b29f32075.bindPopup(popup_a5a2940754055548f5c004efeb16cd5a)
+        ;
+
+        
+    
+    
+                marker_9a7c9f5a46bc6e72a06a1e1b29f32075.setIcon(icon_8f719dec21e999534b83c6700a23638b);
+            
+    
+            var marker_a4309a557d2754653bac747d0c95cf4f = L.marker(
+                [48.202259, 34.8714481],
+                {
+}
+            ).addTo(feature_group_48e72e3f25b77d53cc845be034bab113);
+        
+    
+            var icon_bdf785a231e932b6b06de32356eed5a3 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "green",
+  "iconColor": "white",
+  "icon": "plus-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_4f8596f823eb77f5d883529b388c5c0d = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_612ca95df0b6a61520bfbf77826f2548 = $(`<div id="html_612ca95df0b6a61520bfbf77826f2548" style="width: 100.0%; height: 100.0%;">🏥 КНП «Солонянська багатопрофільна лікарня» ССР»<br><b>Загальний ЗОЗ</b><br>Дніпропетровська обл., Дніпровський р-н, селище міського типу Солоне, вул.Усенка, будинок  13-А</div>`)[0];
+                popup_4f8596f823eb77f5d883529b388c5c0d.setContent(html_612ca95df0b6a61520bfbf77826f2548);
+            
+        
+
+        marker_a4309a557d2754653bac747d0c95cf4f.bindPopup(popup_4f8596f823eb77f5d883529b388c5c0d)
+        ;
+
+        
+    
+    
+                marker_a4309a557d2754653bac747d0c95cf4f.setIcon(icon_bdf785a231e932b6b06de32356eed5a3);
+            
+    
+            var marker_d6b16ef62f1c232ead941829cb77a1c4 = L.marker(
+                [48.467327, 35.0208389],
+                {
+}
+            ).addTo(feature_group_48e72e3f25b77d53cc845be034bab113);
+        
+    
+            var icon_0a806dcabf9997e73cbae46709cdfa86 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "plus-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_2875deda5e97c78b054ff9bf64ce681e = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_672aaf50e15faca68dbc568af397ccac = $(`<div id="html_672aaf50e15faca68dbc568af397ccac" style="width: 100.0%; height: 100.0%;">🏥 КНП «Міська багатопрофільна клінічна лікарня матері та дитини ім. проф. М. Ф. Руднева» ДМР<br><b>Кластерний ЗОЗ</b><br>Дніпропетровська обл., місто Дніпро, проспект Лесі Українки, будинок 26</div>`)[0];
+                popup_2875deda5e97c78b054ff9bf64ce681e.setContent(html_672aaf50e15faca68dbc568af397ccac);
+            
+        
+
+        marker_d6b16ef62f1c232ead941829cb77a1c4.bindPopup(popup_2875deda5e97c78b054ff9bf64ce681e)
+        ;
+
+        
+    
+    
+                marker_d6b16ef62f1c232ead941829cb77a1c4.setIcon(icon_0a806dcabf9997e73cbae46709cdfa86);
+            
+    
+            var marker_95943361607a54dae1a9048e090463a5 = L.marker(
+                [48.4158142, 35.0480341],
+                {
+}
+            ).addTo(feature_group_48e72e3f25b77d53cc845be034bab113);
+        
+    
+            var icon_568406351a3477d753c56d8d4dcb79d4 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "purple",
+  "iconColor": "white",
+  "icon": "plus-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_4499ae562efd0fbe132ad1da16f656d2 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_cc452bdb9c8fbe559214bcdedb795edf = $(`<div id="html_cc452bdb9c8fbe559214bcdedb795edf" style="width: 100.0%; height: 100.0%;">🏥 КП "Регіональний медичний центр родинного здоров'я" Дніпропетровської обласної ради<br><b>Надкластерний ЗОЗ</b><br> Дніпропетровська обл., місто Дніпро, вулиця Космічна, будинок 13</div>`)[0];
+                popup_4499ae562efd0fbe132ad1da16f656d2.setContent(html_cc452bdb9c8fbe559214bcdedb795edf);
+            
+        
+
+        marker_95943361607a54dae1a9048e090463a5.bindPopup(popup_4499ae562efd0fbe132ad1da16f656d2)
+        ;
+
+        
+    
+    
+                marker_95943361607a54dae1a9048e090463a5.setIcon(icon_568406351a3477d753c56d8d4dcb79d4);
+            
+    
+            var marker_2ec61ae4bd36214fa35b6498e1fe3acb = L.marker(
+                [47.6572805, 34.07859000000001],
+                {
+}
+            ).addTo(feature_group_48e72e3f25b77d53cc845be034bab113);
+        
+    
+            var icon_91eee5a9b0adf58090fd786018095939 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "green",
+  "iconColor": "white",
+  "icon": "plus-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_a7d8b94551fd11377d92e907407c0898 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_ca7695e1ab5d77831eae8340443b49f0 = $(`<div id="html_ca7695e1ab5d77831eae8340443b49f0" style="width: 100.0%; height: 100.0%;">🏥 КП "Центральна міська лікарня" ПМР Дніпропетровської області<br><b>Загальний ЗОЗ</b><br>Дніпропетровська обл., Нікопольський р-н, місто Покров, вул.Медична, будинок 19</div>`)[0];
+                popup_a7d8b94551fd11377d92e907407c0898.setContent(html_ca7695e1ab5d77831eae8340443b49f0);
+            
+        
+
+        marker_2ec61ae4bd36214fa35b6498e1fe3acb.bindPopup(popup_a7d8b94551fd11377d92e907407c0898)
+        ;
+
+        
+    
+    
+                marker_2ec61ae4bd36214fa35b6498e1fe3acb.setIcon(icon_91eee5a9b0adf58090fd786018095939);
+            
+    
+            var marker_25d24c76e0845703376b516d40516c3b = L.marker(
+                [48.64726, 35.2617751],
+                {
+}
+            ).addTo(feature_group_48e72e3f25b77d53cc845be034bab113);
+        
+    
+            var icon_b072b78c52d28aa9a02dc2966eab33f3 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "plus-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_572c45caffd046df55c53fc94415b692 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_1b942402ecd9a7d94b4d4fc9f039f974 = $(`<div id="html_1b942402ecd9a7d94b4d4fc9f039f974" style="width: 100.0%; height: 100.0%;">🏥 КП "Новомосковська центральна регіональна лікарня інтенсивного лікування"<br><b>Кластерний ЗОЗ</b><br>Дніпропетровська обл., місто Новомосковськ, вулиця Гетьманська, будинок 238</div>`)[0];
+                popup_572c45caffd046df55c53fc94415b692.setContent(html_1b942402ecd9a7d94b4d4fc9f039f974);
+            
+        
+
+        marker_25d24c76e0845703376b516d40516c3b.bindPopup(popup_572c45caffd046df55c53fc94415b692)
+        ;
+
+        
+    
+    
+                marker_25d24c76e0845703376b516d40516c3b.setIcon(icon_b072b78c52d28aa9a02dc2966eab33f3);
+            
+    
+            var marker_86f433940bd3b6635152a4113e625dbd = L.marker(
+                [48.465015, 34.9804001],
+                {
+}
+            ).addTo(feature_group_48e72e3f25b77d53cc845be034bab113);
+        
+    
+            var icon_8e2c3d64623d6b034897743793451ef8 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "green",
+  "iconColor": "white",
+  "icon": "plus-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_5fec7d32106f97d230fce177218abfc0 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_d6beee50d949d75301f55800e702e3ca = $(`<div id="html_d6beee50d949d75301f55800e702e3ca" style="width: 100.0%; height: 100.0%;">🏥 КНП «Міська дитяча клінічна лікарня №6»ДМР<br><b>Загальний ЗОЗ</b><br>Дніпропетровська обл., місто Дніпро, вулиця Караваєва, будинок 68</div>`)[0];
+                popup_5fec7d32106f97d230fce177218abfc0.setContent(html_d6beee50d949d75301f55800e702e3ca);
+            
+        
+
+        marker_86f433940bd3b6635152a4113e625dbd.bindPopup(popup_5fec7d32106f97d230fce177218abfc0)
+        ;
+
+        
+    
+    
+                marker_86f433940bd3b6635152a4113e625dbd.setIcon(icon_8e2c3d64623d6b034897743793451ef8);
+            
+    
+            var marker_d5ce6e54510f107a0fd1c628ba1fcdf4 = L.marker(
+                [48.510748, 35.8955907],
+                {
+}
+            ).addTo(feature_group_48e72e3f25b77d53cc845be034bab113);
+        
+    
+            var icon_a9ce21e4a6f1f55031bc08116282866a = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "plus-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_c89aa41503ff5524e9ca9beba863cb89 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_5a3dbe22e7356193d72deadda07957bd = $(`<div id="html_5a3dbe22e7356193d72deadda07957bd" style="width: 100.0%; height: 100.0%;">🏥 КНП "Павлоградська лікарня інтенсивного лікування" ПМР<br><b>Кластерний ЗОЗ</b><br>Дніпропетровська обл., місто Павлоград, вулиця Дніпровська, будинок 541</div>`)[0];
+                popup_c89aa41503ff5524e9ca9beba863cb89.setContent(html_5a3dbe22e7356193d72deadda07957bd);
+            
+        
+
+        marker_d5ce6e54510f107a0fd1c628ba1fcdf4.bindPopup(popup_c89aa41503ff5524e9ca9beba863cb89)
+        ;
+
+        
+    
+    
+                marker_d5ce6e54510f107a0fd1c628ba1fcdf4.setIcon(icon_a9ce21e4a6f1f55031bc08116282866a);
+            
+    
+            var marker_ef28ba01e490135cdfaa076a3e15275d = L.marker(
+                [47.9764369, 33.5338854],
+                {
+}
+            ).addTo(feature_group_48e72e3f25b77d53cc845be034bab113);
+        
+    
+            var icon_c0d05d9e1f4bc9513ff1f33cc333dacf = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "green",
+  "iconColor": "white",
+  "icon": "plus-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_da2ac5d554d1d3ddc22c6c64c8e07d37 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_4a8a3c8346e1d3d15bb27428fc8cf9c2 = $(`<div id="html_4a8a3c8346e1d3d15bb27428fc8cf9c2" style="width: 100.0%; height: 100.0%;">🏥 КП "Криворізька центральна районна лікарня" НСР<br><b>Загальний ЗОЗ</b><br>Дніпропетровська обл., Криворізький р-н, село Новомайське, вулиця Вишнева, будинок 1-А</div>`)[0];
+                popup_da2ac5d554d1d3ddc22c6c64c8e07d37.setContent(html_4a8a3c8346e1d3d15bb27428fc8cf9c2);
+            
+        
+
+        marker_ef28ba01e490135cdfaa076a3e15275d.bindPopup(popup_da2ac5d554d1d3ddc22c6c64c8e07d37)
+        ;
+
+        
+    
+    
+                marker_ef28ba01e490135cdfaa076a3e15275d.setIcon(icon_c0d05d9e1f4bc9513ff1f33cc333dacf);
+            
+    
+            feature_group_48e72e3f25b77d53cc845be034bab113.addTo(map_1497b90e4fd70cc03cdd46b9b574acf8);
+        
+    
+            var layer_control_36413d1f0a1a1cff4df093d39847e7fc_layers = {
+                base_layers : {
+                    "openstreetmap" : tile_layer_ffe14ddb46883f7f60ce1ea164732c09,
+                },
+                overlays :  {
+                    "\u041e\u0414\u0421" : feature_group_sub_group_4dbc3348ab40074a0a1ad566a6422585,
+                    "\u041f\u0443\u043d\u043a\u0442 \u0431\u0430\u0437\u0443\u0432\u0430\u043d\u043d\u044f" : feature_group_sub_group_0bbca4edb8953ceca4b0585e02895475,
+                    "\u041f\u0456\u0434\u0441\u0442\u0430\u043d\u0446\u0456\u044f" : feature_group_sub_group_0c346f28725ad9de590f545d49fb4db1,
+                    "\u0421\u0442\u0430\u043d\u0446\u0456\u044f" : feature_group_sub_group_6d556b73fe010f000a11a7c3c7948a44,
+                    "\u0426\u0415\u041c\u0414" : feature_group_sub_group_0c1ad52020f59b824fbca7c09c82f438,
+                    "Hospitals" : feature_group_48e72e3f25b77d53cc845be034bab113,
+                },
+            };
+            let layer_control_36413d1f0a1a1cff4df093d39847e7fc = L.control.layers(
+                layer_control_36413d1f0a1a1cff4df093d39847e7fc_layers.base_layers,
+                layer_control_36413d1f0a1a1cff4df093d39847e7fc_layers.overlays,
+                {
+  "position": "topright",
+  "collapsed": false,
+  "autoZIndex": true,
+}
+            ).addTo(map_1497b90e4fd70cc03cdd46b9b574acf8);
+
+        
+</script>
+</html>
